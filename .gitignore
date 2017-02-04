@@ -1,3 +1,10 @@
+# Java
+*.class
+*.jar
+*.war
+*.ear
+
+# Maven
 target/
 pom.xml.tag
 pom.xml.releaseBackup
@@ -7,3 +14,26 @@ release.properties
 dependency-reduced-pom.xml
 buildNumber.properties
 .mvn/timing.properties
+.metadata
+bin/
+tmp/
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.settings/
+.loadpath
+.recommenders
+
+# Eclipse
+.project
+.externalToolBuilders/
+*.launch
+.classpath
+.target
+.recommenders/
+
+# Intellij
+.idea/
+*.iml
