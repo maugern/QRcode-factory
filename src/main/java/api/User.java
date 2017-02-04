@@ -15,6 +15,8 @@ import org.mindrot.jbcrypt.BCrypt;
 @Entity
 public class User implements Serializable {
 
+	private static final long serialVersionUID = 5316527283073594682L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -23,7 +25,7 @@ public class User implements Serializable {
 	private String name;
 	private String email;
 	private String passwdHash;
-	
+
 	/**
 	 * User constructor.
 	 * @param alias login or username, who must be unique
@@ -32,16 +34,16 @@ public class User implements Serializable {
 	 * @param password non crypted
 	 */
 	public User(String alias,
-				String name,
-				String email,
-				String password)
+			String name,
+			String email,
+			String password)
 	{
 		this.alias = alias;
 		this.name = name;
 		this.email = email;
 		setPassword(password);
 	};
-	
+
 	public String getName() {
 		return name;
 	}
@@ -98,10 +100,10 @@ public class User implements Serializable {
 	private String generateSalt() {
 		return BCrypt.gensalt(12); // increase default values, who is 10.
 	}
-	
+
 	@Override
 	public String toString() {
 		return "<" + id + "," + alias + "," + email + ">";
 	}
-	
+
 }
