@@ -122,14 +122,27 @@
 		<dependency>
 			<groupId>ch.qos.logback</groupId>
 			<artifactId>logback-classic</artifactId>
-			<version>1.1.2</version>
+			<version>1.1.9</version>
 		</dependency>
+		
 		<!-- Bcrypt, a blowfish hashing code, designed to raise the cost of off-line 
 			brute force or raindow attaque (aka JohnTheRipper). More information : https://en.wikipedia.org/wiki/Bcrypt -->
 		<dependency>
 			<groupId>org.mindrot</groupId>
 			<artifactId>jbcrypt</artifactId>
 			<version>0.3m</version>
+		</dependency>
+
+		<!-- zxing, to generate QR-code -->
+		<dependency>
+			<groupId>com.google.zxing</groupId>
+			<artifactId>core</artifactId>
+			<version>2.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.google.zxing</groupId>
+			<artifactId>javase</artifactId>
+			<version>2.0</version>
 		</dependency>
 
 	</dependencies>
