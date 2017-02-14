@@ -2,13 +2,13 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>fr.epsi.projetjava</groupId>
-	<artifactId>projetjava</artifactId>
+	<groupId>fr.epsi.qrcode-factory</groupId>
+	<artifactId>qrcode-factory</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
-	<name>Projet Java</name>
+	<name>QRcode Factory</name>
 
-	<url>https://github.com/maugern/projetjava</url>
+	<url>https://github.com/maugern/QRcode-factory</url>
 	<description>Hébergemant de services dynamiquement créés par les utilisateurs et distribués par l’intermédiaire de QR-codes.</description>
 
 	<developers>

@@ -11,6 +11,6 @@
         <appender-ref ref="STDOUT"/>
     </root>
 
-    <logger name="projetjava" level="trace" additivity="false" />
+    <logger name="qrcode-factory" level="trace" additivity="false" />
 
 </configuration>
