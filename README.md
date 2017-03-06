@@ -1,8 +1,9 @@
-# QRcode Factory [![Build Status](https://travis-ci.org/maugern/QRcode-factory.svg?branch=master)](https://travis-ci.org/maugern/QRcode-factory)
+# QRcode Factory[![Build Status](https://travis-ci.org/maugern/QRcode-factory.svg?branch=master)](https://travis-ci.org/maugern/QRcode-factory)
 
 **Notre projet Java/JEE de troisième année à l'ESPI Lille.**
 
-Le sujet et la documentation est disponible sur [notre wiki](https://github.com/maugern/QRcode-factory/wiki).
+Le sujet est mise à disposition sur [notre wiki](https://github.com/maugern/QRcode-factory/wiki).
+La javadoc est disponible [ici](https://maugern.github.io/QRcode-factory/).
 
 Liste des membres de l'équipe :
 - [BOROMBO Erwan](https://github.com/BBorombo)
@@ -17,13 +18,12 @@ Clonez d'abord le projet dans votre workspace :
 git clone https://github.com/maugern/QRcode-factory.git
 ```
 
-Puis installer l'application via maven :
+Télécharger les dépendances et lancer les tests unitaires :
 ```sh
-mvn install
-mvn compile
+mvn verify
 ```
 
-Enfin, lancez ensuite l'application en locale sur le port 8080 :
+Lancez ensuite l'application en locale :
 ```sh
 mvn jetty:run
 ```

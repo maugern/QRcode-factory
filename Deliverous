@@ -1,0 +1,6 @@
+java:
+  image: maugern/QRcode-factory
+  ports:
+  - ip: 149.202.22.96
+    container_port: 8080
+    host_port: 80

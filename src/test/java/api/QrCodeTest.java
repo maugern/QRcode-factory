@@ -1,8 +1,3 @@
-/**
- * QrCodeTest.java
- * @author Nicolas
- * Created on 4 févr. 2017
- */
 package api;
 
 import static org.junit.Assert.*;
@@ -17,7 +12,7 @@ import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
 public class QrCodeTest {
-	
+
 	@Rule public TemporaryFolder folder= new TemporaryFolder();
 	public File createdFolder;
 	public File file_to_test;
@@ -39,7 +34,7 @@ public class QrCodeTest {
 
 	@After
 	public void automaticly_destroy_temporary_files_and_folders() {
-		System.out.println("End of QrCodeTest. Delete all temporary files");
+		System.out.println("End of QrCodeTest. Delete all temporary files.");
 	}
 
 }
