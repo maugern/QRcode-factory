@@ -56,17 +56,6 @@ VOLUME  ["/etc/postgresql", "/var/log/postgresql", "/var/lib/postgresql"]
 # Set the default command to run when starting the container
 CMD ["/usr/lib/postgresql/9.3/bin/postgres", "-D", "/var/lib/postgresql/9.3/main", "-c", "config_file=/etc/postgresql/9.3/main/postgresql.conf"]
 
-# Add database init script & run it
-ADD tools/database_creation.sql /srv/QRcode-factory/tools/
-ADD tools/database_purge.sql /srv/QRcode-factory/tools/
-RUN sqlite3 /tmp/data.db < /srv/QRcode-factory/tools/database_creation.sql
-
-# Add database epuration scipt and run it via cron
-ADD tools/crontab /etc/cron.d/database-cron
-RUN chmod 0644 /etc/cron.d/database-cron
-RUN touch /var/log/cron.log
-CMD cron && tail -f /var/log/cron.log
-
 # WEB SERVICE CONFIGURATION ====================================================
 # Precise the source folder
 ADD src /srv/QRcode-factory/src/
@@ -74,4 +63,5 @@ ADD src /srv/QRcode-factory/src/
 EXPOSE 8080
 
 # START THE WEB SERVER =========================================================
+USER root
 CMD mvn jetty:run
