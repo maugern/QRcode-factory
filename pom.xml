@@ -31,9 +31,11 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java-version>1.7</java-version>
         <org.springframework-version>4.0.3.RELEASE</org.springframework-version>
+        <org.springframework.security-version>4.2.2.RELEASE</org.springframework.security-version>
         <org.aspectj-version>1.7.4</org.aspectj-version>
         <org.slf4j-version>1.7.5</org.slf4j-version>
         <hibernate.version>5.2.6.Final</hibernate.version>
+        <org.zxing-version>3.3.0</org.zxing-version>
 	</properties>
 
 	<build>
@@ -136,6 +138,16 @@
             <artifactId>spring-test</artifactId>
             <version>${org.springframework-version}</version>
         </dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-core</artifactId>
+			<version>${org.springframework.security-version}</version>
+		</dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-web</artifactId>
+            <version>${org.springframework.security-version}</version>
+        </dependency>
 
 		<!-- hibernate -->
 		<dependency>
@@ -180,12 +192,12 @@
 		<dependency>
 			<groupId>com.google.zxing</groupId>
 			<artifactId>core</artifactId>
-			<version>2.0</version>
+			<version>${org.zxing-version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.google.zxing</groupId>
 			<artifactId>javase</artifactId>
-			<version>2.0</version>
+			<version>${org.zxing-version}</version>
 		</dependency>
 
 	</dependencies>
