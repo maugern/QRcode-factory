@@ -1,10 +1,12 @@
-package api;
+package entity;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
+
+import entity.User;
 
 public class UserTest {
 

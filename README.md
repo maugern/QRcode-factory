@@ -1,4 +1,4 @@
-# QRcode Factory[![Build Status](https://travis-ci.org/maugern/QRcode-factory.svg?branch=master)](https://travis-ci.org/maugern/QRcode-factory)
+# QRcode Factory [![Build Status](https://travis-ci.org/maugern/QRcode-factory.svg?branch=master)](https://travis-ci.org/maugern/QRcode-factory)
 
 **Notre projet Java/JEE de troisième année à l'ESPI Lille.**
 

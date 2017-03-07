@@ -1,4 +1,4 @@
-package api;
+package service;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -25,7 +25,7 @@ public class QrCode {
 	 * Create and save a QRcode in image format.
 	 * @param data The url you want to convert in QR code
 	 * @param size in pixel, will be a square 
-	 * @param imageFormat i recommand to use "png"
+	 * @param imageFormat I recommend to use "png"
 	 * @param pathToFile path to save the QR code, /home/user/Images/ or C:/User/user/Images/ for exemple 
 	 * @param fileName the name of generate image
 	 * @throws WriterException 

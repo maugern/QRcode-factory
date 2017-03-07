@@ -1,23 +1,27 @@
-package api;
+package entity;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import org.hibernate.annotations.Table;
 import org.mindrot.jbcrypt.BCrypt;
 
 /**
  * User class
  */
 @Entity
+@Table(appliesTo="users")
 public class User implements Serializable {
 
 	private static final long serialVersionUID = 5316527283073594682L;
 
 	@Id
+	@Column(name="id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
@@ -42,7 +46,11 @@ public class User implements Serializable {
 		this.name = name;
 		this.email = email;
 		setPassword(password);
-	};
+	}
+
+	public Long getId() {
+		return id;
+	}
 
 	public String getName() {
 		return name;
@@ -69,7 +77,7 @@ public class User implements Serializable {
 	}
 
 	/**
-	 * Set a new passwordHash using 
+	 * Set a new passwordHash using
 	 * <a href="https://en.wikipedia.org/wiki/Bcrypt">bCrypt algorithm</a>.
 	 * Only hashed password will be save and no salt,
 	 * to protect against rainbow attacks.
@@ -80,7 +88,7 @@ public class User implements Serializable {
 	}
 
 	/**
-	 * Testing if password match hashed password using bCrypt algorithm. 
+	 * Testing if password match hashed password using bCrypt algorithm.
 	 * @param password to test
 	 * @return true if password match
 	 */
@@ -92,13 +100,27 @@ public class User implements Serializable {
 		return passwdHash;
 	}
 
-	/** 
+	/**
 	 * GenerateSalt log_rounds parameter determines the complexity
 	 * the work factor is 2**log_rounds, and the default is 12.
 	 * Always remember in computer science, is only a pseudo-random number.
 	 */
 	private String generateSalt() {
 		return BCrypt.gensalt(12); // increase default values, who is 10.
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (getClass() != obj.getClass())
+			return false;
+		User user = (User) obj;
+		return 	id == user.getId() &&
+				alias.equals(user.getAlias()) &&
+				name.equals(user.getName()) &&
+				email.equals(user.getEmail()) &&
+				passwdHash.equals(user.getPasswdHash());
 	}
 
 	@Override
