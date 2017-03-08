@@ -9,20 +9,13 @@ MAINTAINER Nicolas Mauger <https://github.com/maugern/>
 # BEFORE INSTALL ===============================================================
 # Sets language to UTF8 : this works in pretty much all cases
 ENV LANG en_US.UTF-8
-# Add PostgreSQL's repository
-RUN apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys B97B0AFCAA1A47F044F244A07FCC7D46ACCC4CF8
-RUN echo "deb http://apt.postgresql.org/pub/repos/apt/ precise-pgdg main" > /etc/apt/sources.list.d/pgdg.list
 
-# INSTALL JAVA 7 & MAVEN & Postgresql ==========================================
+# INSTALL JAVA 7 & MAVEN & SQLite ==============================================
 RUN apt-get update && \
     apt-get install --fix-missing -y \
             openjdk-7-jdk \
             maven \
-            python-software-properties \
-            software-properties-common \
-            postgresql-9.3 \
-            postgresql-client-9.3 \
-            postgresql-contrib-9.3
+            sqlite3
 
 # CONFIGURE JAVA ===============================================================
 ENV JAVA_HOME /usr/lib/jvm/java-1.7.0-openjdk-amd64
@@ -34,27 +27,17 @@ ADD pom.xml /srv/QRcode-factory/
 WORKDIR /srv/QRcode-factory/
 RUN mvn install
 
-# Postgresql configuration & database ==========================================
-USER postgres
-RUN /etc/init.d/postgresql start && \
-    psql --command "CREATE USER docker WITH SUPERUSER PASSWORD 'docker';" &&\
-    createdb -O docker docker
+# SQLITE & database ============================================================
+# Add database init script & run it
+ADD tools/database_creation.sql /srv/jersey-skeleton/tools/
+ADD tools/database_purge.sql /srv/jersey-skeleton/tools/
+RUN sqlite3 /tmp/data.db < /srv/jersey-skeleton/tools/database_creation.sql
 
-# Adjust PostgreSQL configuration so that remote connections to the
-# database are possible.
-RUN echo "host all  all    0.0.0.0/0  md5" >> /etc/postgresql/9.3/main/pg_hba.conf
-
-# And add ``listen_addresses`` to ``/etc/postgresql/9.3/main/postgresql.conf``
-RUN echo "listen_addresses='*'" >> /etc/postgresql/9.3/main/postgresql.conf
-
-# Expose the PostgreSQL port
-EXPOSE 5433
-
-# Add VOLUMEs to allow backup of config, logs and databases
-VOLUME  ["/etc/postgresql", "/var/log/postgresql", "/var/lib/postgresql"]
-
-# Set the default command to run when starting the container
-CMD ["/usr/lib/postgresql/9.3/bin/postgres", "-D", "/var/lib/postgresql/9.3/main", "-c", "config_file=/etc/postgresql/9.3/main/postgresql.conf"]
+# Add database epuration scipt and run it via cron
+ADD tools/crontab /etc/cron.d/database-cron
+RUN chmod 0644 /etc/cron.d/database-cron
+RUN touch /var/log/cron.log
+CMD cron && tail -f /var/log/cron.log
 
 # WEB SERVICE CONFIGURATION ====================================================
 # Precise the source folder
@@ -63,5 +46,4 @@ ADD src /srv/QRcode-factory/src/
 EXPOSE 8080
 
 # START THE WEB SERVER =========================================================
-USER root
 CMD mvn jetty:run

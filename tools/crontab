@@ -1,0 +1,5 @@
+#!/bin/sh
+
+# h d m y commande                                  w  file              e
+0 0 * * * sqlite3 /tmp/data.db < database_purge.sql >> /var/log/cron.log 2>&1
+
