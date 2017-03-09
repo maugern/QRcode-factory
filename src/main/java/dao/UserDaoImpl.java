@@ -25,9 +25,10 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	/* (non-Javadoc)
-	 * @see api.UserDao#addUser(api.User)
+	 * @see api.UserDao#addUser(entity.User)
 	 */
 	@Override
+	@Transactional
 	public void addUser(User user) {
 		Session session = this.sessionFactory.getCurrentSession();
 		session.persist(user);
@@ -35,7 +36,7 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	/* (non-Javadoc)
-	 * @see api.UserDao#updateUser(api.User)
+	 * @see api.UserDao#updateUser(entity.User)
 	 */
 	@Override
 	@Transactional
@@ -58,7 +59,7 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	/* (non-Javadoc)
-	 * @see api.UserDao#getUserById(int)
+	 * @see api.UserDao#getUserById(long)
 	 */
 	@Override
 	public User getUserById(long id) {
@@ -69,7 +70,7 @@ public class UserDaoImpl implements UserDao {
 	}
 	
 	/* (non-Javadoc)
-	 * @see api.UserDao#getUserById(int)
+	 * @see api.UserDao#getUserByAlias(String)
 	 */
 	@Override
 	public User getUserByAlias(String alias) {
@@ -83,15 +84,13 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	/* (non-Javadoc)
-	 * @see api.UserDao#removeUser(api.User)
+	 * @see api.UserDao#removeUser(entity.User)
 	 */
 	@Override
+	@Transactional
 	public void removeUser(User user) {
 		Session session = this.sessionFactory.getCurrentSession();
-		User tmpUser = session.load(User.class, user.getId());
-		if(null != tmpUser){
-			session.delete(tmpUser);
-		}
+		session.delete(user);
 		logger.info("User " + user + " deleted successfully.");
 	}
 
