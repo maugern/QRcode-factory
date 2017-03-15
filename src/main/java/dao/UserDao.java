@@ -29,7 +29,7 @@ public interface UserDao {
 	 * @param id User id (= primary key)
 	 * @return The user 
 	 */
-	public User getUserById(long id);
+	public User getUserById(Long id);
 	
 	/**
 	 * Get the persistent User with the associated id, corresponding with the User 'alias' Unique value.

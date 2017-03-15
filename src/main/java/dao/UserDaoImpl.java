@@ -1,17 +1,20 @@
 package dao;
 
-import java.util.Collections;
 import java.util.List;
+
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import entity.User;
+import entity.User_;
 
 @Service
 public class UserDaoImpl implements UserDao {
@@ -49,20 +52,21 @@ public class UserDaoImpl implements UserDao {
 	/* (non-Javadoc)
 	 * @see api.UserDao#listPersons()
 	 */
-	@SuppressWarnings({ "deprecation", "unchecked" }) // Forgive me, I dont have better solution : http://stackoverflow.com/questions/115692/how-to-avoid-type-safety-warnings-with-hibernate-hql-results
 	@Override
 	public List<User> listUsers() {
 		Session session = this.sessionFactory.getCurrentSession();
-		org.hibernate.Query<User> q = session.createQuery("from users");
-		List<User> usersList = Collections.checkedList(q.list(), User.class);
-		return usersList;
+		CriteriaBuilder cb = session.getCriteriaBuilder();
+		CriteriaQuery<User> cq = cb.createQuery(User.class);
+		Root<User> root = cq.from(User.class);
+		cq.select(root);
+		return session.createQuery(cq).getResultList();
 	}
 
 	/* (non-Javadoc)
 	 * @see api.UserDao#getUserById(long)
 	 */
 	@Override
-	public User getUserById(long id) {
+	public User getUserById(Long id) {
 		Session session = this.sessionFactory.getCurrentSession();
 		User user = session.load(User.class, id);
 		logger.info("User " + user +" loaded successfully.");
@@ -75,10 +79,11 @@ public class UserDaoImpl implements UserDao {
 	@Override
 	public User getUserByAlias(String alias) {
 		Session session = this.sessionFactory.getCurrentSession();
-		@SuppressWarnings("deprecation")
-		org.hibernate.Criteria cr = session.createCriteria(User.class);
-		cr.add(Restrictions.eq("alias", alias));
-		User user = (User) cr.uniqueResult();
+		CriteriaBuilder cb = session.getCriteriaBuilder();
+		CriteriaQuery<User> cq = cb.createQuery(User.class);
+		Root<User> root = cq.from(User.class);
+		cq.where(cb.equal(root.get(User_.alias), alias));
+		User user = session.createQuery(cq).getSingleResult();
 		logger.info("User " + user +" loaded successfully.");
 		return user;
 	}

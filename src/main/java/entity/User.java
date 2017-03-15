@@ -21,14 +21,14 @@ public class User implements Serializable {
 	private static final long serialVersionUID = 5316527283073594682L;
 
 	@Id
-	@Column(name="id")
+	@Column(name="id", updatable = false, nullable = false)
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	private String alias;
-	private String name;
-	private String email;
-	private String passwdHash;
+	@Column(name="alias")      private String alias;
+	@Column(name="name")       private String name;
+	@Column(name="email")      private String email;
+	@Column(name="passwdHash") private String passwdHash;
 
 	/**
 	 * User constructor.
@@ -104,6 +104,7 @@ public class User implements Serializable {
 	 * GenerateSalt log_rounds parameter determines the complexity
 	 * the work factor is 2**log_rounds, and the default is 12.
 	 * Always remember in computer science, is only a pseudo-random number.
+	 * @return BCrypt generated salt
 	 */
 	private String generateSalt() {
 		return BCrypt.gensalt(12); // increase default values, who is 10.
