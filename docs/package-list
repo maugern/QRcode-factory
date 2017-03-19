@@ -1,4 +1,6 @@
-api
+config
+config.core
 dao
 entity
 service
+web
