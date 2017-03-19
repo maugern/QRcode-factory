@@ -16,53 +16,53 @@ import org.springframework.test.annotation.Rollback;
 
 public class UserDaoImplTest {
 
-	@Autowired private UserDao userdao;
+    @Autowired private UserDao userdao;
 
-	@Test
-	@Transactional
-	@Rollback(true)
-	public void test_persistent_addUser() {
-		User foo = new User("foo", "foo","foo@foo.com" , "F0O");
+    @Test
+    @Transactional
+    @Rollback(true)
+    public void test_persistent_addUser() {
+        User foo = new User("foo", "foo","foo@foo.com" , "F0O");
 
-		userdao.addUser(foo);
-		List<User> users = userdao.listUsers();
+        userdao.addUser(foo);
+        List<User> users = userdao.listUsers();
 
-		assertTrue(foo.equals(users.get(0)));
-	}
+        assertTrue(foo.equals(users.get(0)));
+    }
 
-	@Test
-	@Transactional
-	@Rollback(true)
-	public void test_persistent_updateUser() {
-		User foo = new User("foo", "foo", "foo@foo.com", "F0O");
+    @Test
+    @Transactional
+    @Rollback(true)
+    public void test_persistent_updateUser() {
+        User foo = new User("foo", "foo", "foo@foo.com", "F0O");
 
-		userdao.addUser(foo);
-		List<User> users = userdao.listUsers();
+        userdao.addUser(foo);
+        List<User> users = userdao.listUsers();
 
-		assertTrue(foo.equals(users.get(0)));
+        assertTrue(foo.equals(users.get(0)));
 
-		foo.setName("bar");
-		userdao.updateUser(foo);
+        foo.setName("bar");
+        userdao.updateUser(foo);
 
-		users = userdao.listUsers();
-		assertTrue("bar".equals(users.get(0).getName()));
-	}
+        users = userdao.listUsers();
+        assertTrue("bar".equals(users.get(0).getName()));
+    }
 
-	@Test
-	@Transactional
-	@Rollback(true)
-	public void test_persistent_removeUser() {
-		User foo = new User("foo", "foo", "foo@foo.com", "F0O");
+    @Test
+    @Transactional
+    @Rollback(true)
+    public void test_persistent_removeUser() {
+        User foo = new User("foo", "foo", "foo@foo.com", "F0O");
 
-		userdao.addUser(foo);
-		List<User> users = userdao.listUsers();
+        userdao.addUser(foo);
+        List<User> users = userdao.listUsers();
 
-		assertEquals(users.size(), 1);
+        assertEquals(users.size(), 1);
 
-		userdao.removeUser(foo);
+        userdao.removeUser(foo);
 
-		users = userdao.listUsers();
-		assertEquals(users.size(), 0);
-	}
-	
+        users = userdao.listUsers();
+        assertEquals(users.size(), 0);
+    }
+
 }
