@@ -38,9 +38,9 @@ public class User implements Serializable {
      * @param password non crypted
      */
     public User(String alias,
-            String name,
-            String email,
-            String password)
+                String name,
+                String email,
+                String password)
     {
         this.alias = alias;
         this.name = name;
@@ -112,12 +112,14 @@ public class User implements Serializable {
 
     @Override
     public boolean equals(Object obj) {
+        if (obj == null)
+            return false;
         if (this == obj)
             return true;
         if (getClass() != obj.getClass())
             return false;
         User user = (User) obj;
-        return 	id == user.getId() &&
+        return id == user.getId() &&
                 alias.equals(user.getAlias()) &&
                 name.equals(user.getName()) &&
                 email.equals(user.getEmail()) &&
@@ -125,13 +127,23 @@ public class User implements Serializable {
     }
 
     @Override
+    public int hashCode() {
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (alias != null ? alias.hashCode() : 0);
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (email != null ? email.hashCode() : 0);
+        result = 31 * result + (passwdHash != null ? passwdHash.hashCode() : 0);
+        return result;
+    }
+
+    @Override
     public String toString() {
         // JSON format
         return "{\"User\":{\"id\":\""+id+"\","
-                + "\"alias\":\""+alias+"\","
-                + "\"name\":\""+name+"\","
-                + "\"email\":\""+email+"\","
-                + "\"passwdHash\":\""+passwdHash+"\"}}";
+               + "\"alias\":\""+alias+"\","
+               + "\"name\":\""+name+"\","
+               + "\"email\":\""+email+"\","
+               + "\"passwdHash\":\""+passwdHash+"\"}}";
     }
 
 }

@@ -1,21 +1,21 @@
 # QRcode-factory's Dockerfile ==================================================
 # Release under MIT Licence
-# For more information, github.com/maugern/QRcode-factory
+# For more information, https://github.com/maugern/QRcode-factory
 
 # DEFINE IMAGE =================================================================
-FROM debian:jessie
+# 9.1 version is the latest supported by maven central jdbc
+FROM postgres:9.1
 MAINTAINER Nicolas Mauger <https://github.com/maugern/>
 
 # BEFORE INSTALL ===============================================================
 # Sets language to UTF8 : this works in pretty much all cases
 ENV LANG en_US.UTF-8
 
-# INSTALL JAVA 7 & MAVEN & SQLite ==============================================
+# INSTALL JAVA 7 & MAVEN =======================================================
 RUN apt-get update && \
     apt-get install --fix-missing -y \
             openjdk-7-jdk \
-            maven \
-            sqlite3
+            maven
 
 # CONFIGURE JAVA ===============================================================
 ENV JAVA_HOME /usr/lib/jvm/java-1.7.0-openjdk-amd64
@@ -27,13 +27,16 @@ ADD pom.xml /srv/QRcode-factory/
 WORKDIR /srv/QRcode-factory/
 RUN mvn install
 
-# SQLITE & database ============================================================
-# Add database init script & run it
-ADD tools/database_creation.sql /srv/jersey-skeleton/tools/
-ADD tools/database_purge.sql /srv/jersey-skeleton/tools/
-RUN sqlite3 /tmp/data.db < /srv/jersey-skeleton/tools/database_creation.sql
+# CONFIGURE POSTGRESQL =========================================================
+RUN /etc/init.d/postgresql start
+RUN psql --command "CREATE USER docker WITH SUPERUSER PASSWORD 'docker';" && \
+    createdb -O docker docker
 
-# Add database epuration scipt and run it via cron
+# Add scripts who will be executed before starting service
+COPY tools/*.sql /docker-entrypoint-initdb.d/
+COPY tools/*.sh  /docker-entrypoint-initdb.d/
+
+# Add database epuration scipts and run it via cron
 ADD tools/crontab /etc/cron.d/database-cron
 RUN chmod 0644 /etc/cron.d/database-cron
 RUN touch /var/log/cron.log
@@ -42,8 +45,7 @@ CMD cron && tail -f /var/log/cron.log
 # WEB SERVICE CONFIGURATION ====================================================
 # Precise the source folder
 ADD src /srv/QRcode-factory/src/
-# Listen on the specified network port
 EXPOSE 8080
-
 # START THE WEB SERVER =========================================================
+
 CMD mvn jetty:run

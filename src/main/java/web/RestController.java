@@ -18,11 +18,11 @@ public class RestController {
 
     @Autowired private UserDao userdao;
 
-    @RequestMapping(value = "/users/{id}", produces="application/json")
+    @RequestMapping(value = "/api/users/{alias}", produces="application/json")
     @ResponseBody
-    public Response getUser(@PathVariable Long id, @RequestHeader("Accept") String acceptHeader) {
+    public Response getUser(@PathVariable String alias, @RequestHeader("Accept") String acceptHeader) {
         logger.trace("Ressource accept header form : {}", acceptHeader);
-        return Response.ok().entity(userdao.getUserById(id)).build();
+        return Response.ok().entity(userdao.getUserByAlias(alias)).build();
     }
 
 }

@@ -42,7 +42,6 @@ public class MainController {
         model.setViewName("login");
 
         return model;
-
     }
 
     @RequestMapping(value = "/401", method = RequestMethod.GET)

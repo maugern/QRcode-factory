@@ -1,5 +1,5 @@
 #!/bin/sh
 
-# h d m y commande                                  w  file              e
-0 0 * * * sqlite3 /tmp/data.db < database_purge.sql >> /var/log/cron.log 2>&1
+# h d m y commande
+0 0 * * * PGPASSWORD=docker psql -h localhost -p 5432 -d docker -U docker < srv/QRCcode-factory/tools/database_purge.sql >> /var/log/cron.log 2>&1
 

@@ -5,6 +5,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,6 +19,7 @@ public class UserDaoImplTest {
 
     @Autowired private UserDao userdao;
 
+    @Ignore
     @Test
     @Transactional
     @Rollback(true)
@@ -30,6 +32,7 @@ public class UserDaoImplTest {
         assertTrue(foo.equals(users.get(0)));
     }
 
+    @Ignore
     @Test
     @Transactional
     @Rollback(true)
@@ -48,6 +51,7 @@ public class UserDaoImplTest {
         assertTrue("bar".equals(users.get(0).getName()));
     }
 
+    @Ignore
     @Test
     @Transactional
     @Rollback(true)

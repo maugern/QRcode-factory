@@ -35,7 +35,7 @@ public class UserDaoImpl implements UserDao {
     public void addUser(User user) {
         Session session = this.sessionFactory.getCurrentSession();
         session.persist(user);
-        logger.info("User " + user +" successfully added.");
+        logger.info("User " + user + " successfully added.");
     }
 
     /* (non-Javadoc)
@@ -46,7 +46,7 @@ public class UserDaoImpl implements UserDao {
     public void updateUser(User user) {
         Session session = this.sessionFactory.getCurrentSession();
         session.update(user);
-        logger.info("User " + user +" successfully updated.");
+        logger.info("User " + user + " successfully updated.");
     }
 
     /* (non-Javadoc)
@@ -71,7 +71,7 @@ public class UserDaoImpl implements UserDao {
     public User getUserById(Long id) {
         Session session = this.sessionFactory.getCurrentSession();
         User user = session.load(User.class, id);
-        logger.info("User " + user +" loaded successfully.");
+        logger.info("User " + user + " loaded successfully.");
         return user;
     }
 
@@ -86,7 +86,7 @@ public class UserDaoImpl implements UserDao {
         Root<User> root = cq.from(User.class);
         cq.where(cb.equal(root.get(User_.alias), alias));
         User user = session.createQuery(cq).getSingleResult();
-        logger.info("User " + user +" loaded successfully.");
+        logger.info("User " + user + " loaded successfully.");
         return user;
     }
 

@@ -10,8 +10,16 @@ import javax.persistence.metamodel.StaticMetamodel;
  */
 @StaticMetamodel(User.class)
 public class User_ {
+
+    /** User id attribute, associated with id column */
     public static volatile SingularAttribute<User, Long> id;
+
+    /** User alias attribute, associated with alias column */
     public static volatile SingularAttribute<User, String> alias;
+
+    /** User name attribute, associated with name column */
     public static volatile SingularAttribute<User, String> name;
+
+    /** User email attribute, associated with email column */
     public static volatile SingularAttribute<User, String> email;
 }

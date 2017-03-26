@@ -22,8 +22,8 @@ public class UserTest {
         User u1 = new User("@foo","foo","foo@email.com","password");
         User u2 = new User("@bar","bar","bar@email.com","password");
         assertFalse(u1.getPasswdHash().equals(u2.getPasswdHash()));
-        assertTrue(u1.getPasswdHash().length() >= 60);
-        assertTrue(u2.getPasswdHash().length() >= 60);
+        assertTrue(u1.getPasswdHash().length() >= 59);
+        assertTrue(u2.getPasswdHash().length() >= 59);
     }
 
     @Test
