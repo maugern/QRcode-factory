@@ -20,10 +20,10 @@ public class AppConfig {
     @Bean(name = "dataSource")
     public DriverManagerDataSource dataSource() {
         DriverManagerDataSource driverManagerDataSource = new DriverManagerDataSource();
-        driverManagerDataSource.setDriverClassName("org.sqlite.JDBC");
-        driverManagerDataSource.setUrl("jdbc:sqlite:/tmp/data.db");
-        // driverManagerDataSource.setUsername("root");
-        // driverManagerDataSource.setPassword("password");
+        driverManagerDataSource.setDriverClassName("org.postgresql.Driver");
+        driverManagerDataSource.setUrl("jdbc:postgresql://localhost:5432/qrcode-factory");
+        driverManagerDataSource.setUsername("docker");
+        driverManagerDataSource.setPassword("docker");
         return driverManagerDataSource;
     }
 

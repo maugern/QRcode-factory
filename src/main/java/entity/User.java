@@ -1,12 +1,16 @@
 package entity;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.Table;
 import org.mindrot.jbcrypt.BCrypt;
@@ -29,6 +33,8 @@ public class User implements Serializable {
     @Column(name="name")       private String name;
     @Column(name="email")      private String email;
     @Column(name="passwdHash") private String passwdHash;
+    
+    private Set<UserRoles> userRoles = new HashSet<UserRoles>(0);
 
     /**
      * User constructor.
@@ -45,33 +51,71 @@ public class User implements Serializable {
         this.alias = alias;
         this.name = name;
         this.email = email;
-        setPassword(password);
+        setPassword(password); // Keep this set or password will be save in clear
     }
 
+    /** 
+     * Return a User id, associated with id column (= primary key).
+     * @return User id
+     */
     public Long getId() {
         return id;
     }
+    
+    /**
+     * Set User id.
+     * @param id User id
+     */
+    public void setId(Long id) {
+        this.id = id;
+    }
 
+    /**
+     * Return User name, associated with name column.
+     * @return name of User
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Set User name.
+     * @param name User name
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     * Return User alias, associated with name column.
+     * Will be use as username, so it must be unique.
+     * @return User alias
+     */
     public String getAlias() {
         return alias;
     }
-
+    
+    /**
+     * Set User alias.
+     * @param alias User alias
+     */
     public void setAlias(String alias) {
         this.alias = alias;
     }
 
+    /**
+     * Return User email, associated with email column.
+     * For security reason, it must be unique.
+     * @return User email
+     */
     public String getEmail() {
         return email;
     }
-
+    
+    /**
+     * Set User email.
+     * @param email User email
+     */
     public void setEmail(String email) {
         this.email = email;
     }
@@ -83,7 +127,7 @@ public class User implements Serializable {
      * to protect against rainbow attacks.
      * @param password non crypted
      */
-    public void setPassword(String password) {
+    private void setPassword(String password) {
         this.passwdHash = BCrypt.hashpw(password, generateSalt());
     }
 
@@ -96,6 +140,10 @@ public class User implements Serializable {
         return BCrypt.checkpw(password, this.passwdHash);
     }
 
+    /**
+     * Return User passwdHash, associated with email passwdHash column.
+     * @return User passwdHash
+     */
     public String getPasswdHash() {
         return passwdHash;
     }
@@ -109,6 +157,16 @@ public class User implements Serializable {
     private String generateSalt() {
         return BCrypt.gensalt(12); // increase default values, who is 10.
     }
+    
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "users")
+    public Set<UserRoles> getUserRole() {
+        return this.userRoles;
+    }
+
+    public void setUserRole(Set<UserRoles> userRoles) {
+        this.userRoles = userRoles;
+    }
+
 
     @Override
     public boolean equals(Object obj) {
@@ -120,10 +178,10 @@ public class User implements Serializable {
             return false;
         User user = (User) obj;
         return id == user.getId() &&
-                alias.equals(user.getAlias()) &&
-                name.equals(user.getName()) &&
-                email.equals(user.getEmail()) &&
-                passwdHash.equals(user.getPasswdHash());
+               alias.equals(user.getAlias()) &&
+               name.equals(user.getName()) &&
+               email.equals(user.getEmail()) &&
+               passwdHash.equals(user.getPasswdHash());
     }
 
     @Override
