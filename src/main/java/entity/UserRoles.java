@@ -14,7 +14,7 @@ import javax.persistence.Table;
 @Table(name="user_roles")
 public class UserRoles {
     
-    private enum Role{ROLE_ADMIN,ROLE_USER};
+    public enum Role{ROLE_ADMIN,ROLE_USER};
     
     @Id
     @Column(name="id", updatable = false, nullable = false)

@@ -54,6 +54,7 @@ public class UserDaoImpl implements UserDao {
      * @see api.UserDao#listPersons()
      */
     @Override
+    @Transactional (readOnly=true)
     public List<User> listUsers() {
         Session session = this.sessionFactory.getCurrentSession();
         CriteriaBuilder cb = session.getCriteriaBuilder();
@@ -69,6 +70,7 @@ public class UserDaoImpl implements UserDao {
      * @see api.UserDao#getUserById(long)
      */
     @Override
+    @Transactional (readOnly=true)
     public User getUserById(Long id) {
         Session session = this.sessionFactory.getCurrentSession();
         User user = session.load(User.class, id);
@@ -80,6 +82,7 @@ public class UserDaoImpl implements UserDao {
      * @see api.UserDao#getUserByAlias(String)
      */
     @Override
+    @Transactional (readOnly=true)
     public User getUserByAlias(String alias) {
         Session session = this.sessionFactory.getCurrentSession();
         CriteriaBuilder cb = session.getCriteriaBuilder();

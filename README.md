@@ -1,4 +1,4 @@
-# QRcode-Factory [![Build Status](https://travis-ci.org/maugern/QRcode-factory.svg?branch=master)](https://travis-ci.org/maugern/QRcode-factory)
+﻿# QRcode-Factory [![Build Status](https://travis-ci.org/maugern/QRcode-factory.svg?branch=master)](https://travis-ci.org/maugern/QRcode-factory)
 
 **Notre projet Java/JEE de troisième année à l'ESPI Lille.**
 
@@ -6,7 +6,7 @@ Le sujet est mise à disposition sur [notre wiki](https://github.com/maugern/QRc
 La javadoc est disponible [ici](https://maugern.github.io/QRcode-factory/).
 
 Liste des membres de l'équipe :
-- [BOROMBO Erwan](https://github.com/BBorombo)
+- [ROMBO Erwan](https://github.com/BBorombo)
 - [CATTELLE Clément](https://github.com/komanokami)
 - [MAUGER Nicolas](https://github.com/maugern)
 
