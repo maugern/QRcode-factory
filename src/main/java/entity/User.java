@@ -15,6 +15,8 @@ import javax.persistence.OneToMany;
 import org.hibernate.annotations.Table;
 import org.mindrot.jbcrypt.BCrypt;
 
+import entity.UserRoles.Role;
+
 /**
  * User class
  */
@@ -29,10 +31,17 @@ public class User implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name="alias")      private String alias;
-    @Column(name="name")       private String name;
-    @Column(name="email")      private String email;
-    @Column(name="passwdHash") private String passwdHash;
+    @Column(name="alias")      
+    private String alias;
+    
+    @Column(name="name")
+    private String name;
+    
+    @Column(name="email")
+    private String email;
+    
+    @Column(name="passwdHash")
+    private String passwdHash;
     
     private Set<UserRoles> userRoles = new HashSet<UserRoles>(0);
 
@@ -166,7 +175,29 @@ public class User implements Serializable {
     public void setUserRole(Set<UserRoles> userRoles) {
         this.userRoles = userRoles;
     }
-
+    
+    /**
+     * Add role to the Set of user role
+     * @param role role to add to user 
+     * @return true id successfully added, false if role already exist;
+     */
+    public boolean addRole(Role role) {
+        return userRoles.add(new UserRoles(this, role));
+    }
+    
+    /**
+     * Remove role to the Set of user role
+     * @param role role to remove to user 
+     * @return true id successfully remove, false if role not exist;
+     */
+    public boolean removeRole(Role role) {
+        for(UserRoles userRole : userRoles) {
+            if (userRole.getRole().equals(role)) {
+                return userRoles.remove(userRole);
+            }
+        }
+        return false;
+    }
 
     @Override
     public boolean equals(Object obj) {
@@ -177,7 +208,7 @@ public class User implements Serializable {
         if (getClass() != obj.getClass())
             return false;
         User user = (User) obj;
-        return id == user.getId() &&
+        return id.equals(user.getId()) &&
                alias.equals(user.getAlias()) &&
                name.equals(user.getName()) &&
                email.equals(user.getEmail()) &&
@@ -197,11 +228,11 @@ public class User implements Serializable {
     @Override
     public String toString() {
         // JSON format
-        return "{\"User\":{\"id\":\""+id+"\","
+        return "{\"id\":"+id+","
                + "\"alias\":\""+alias+"\","
                + "\"name\":\""+name+"\","
                + "\"email\":\""+email+"\","
-               + "\"passwdHash\":\""+passwdHash+"\"}}";
+               + "\"passwdHash\":\""+passwdHash+"\"}";
     }
 
 }

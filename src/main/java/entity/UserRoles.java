@@ -10,35 +10,50 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+/**
+ * User roles
+ */
 @Entity
 @Table(name="user_roles")
 public class UserRoles {
-    
-    public enum Role{ROLE_ADMIN,ROLE_USER};
-    
+
+    /**
+     * Role that can be attributed to User
+     */
+    public enum Role {
+        /** Admin role */
+        ROLE_ADMIN,
+        /** User role */
+        ROLE_USER
+    }
+
     @Id
     @Column(name="id", updatable = false, nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userRoleId;
-    
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id", nullable = false)
     private User user;
-    
+
     @Column(name = "role", nullable = true)
     private Role role;
-    
+
+    /**
+     * UserRoles Constructor
+     * @param user user affected by the role
+     * @param role role to attribute
+     */
     public UserRoles (User user, Role role) {
-        this.user = user;
         this.role = role;
     }
-    
+
     public Role getRole() {
         return role;
     }
-    
+
     public void setRole(Role role) {
         this.role = role;
     }
-    
+
 }
