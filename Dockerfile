@@ -28,13 +28,8 @@ WORKDIR /srv/QRcode-factory/
 RUN mvn install
 
 # CONFIGURE POSTGRESQL =========================================================
-RUN /etc/init.d/postgresql start
-RUN psql --command "CREATE USER docker WITH SUPERUSER PASSWORD 'docker';" && \
-    createdb -O docker docker
-
 # Add scripts who will be executed before starting service
 COPY tools/*.sql /docker-entrypoint-initdb.d/
-COPY tools/*.sh  /docker-entrypoint-initdb.d/
 
 # Add database epuration scipts and run it via cron
 ADD tools/crontab /etc/cron.d/database-cron
@@ -46,6 +41,6 @@ CMD cron && tail -f /var/log/cron.log
 # Precise the source folder
 ADD src /srv/QRcode-factory/src/
 EXPOSE 8080
-# START THE WEB SERVER =========================================================
 
-CMD mvn jetty:run
+# START THE WEB SERVER =========================================================
+CMD mvn tomcat7:run &

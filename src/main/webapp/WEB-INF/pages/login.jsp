@@ -3,7 +3,6 @@
 <html>
 <head>
 <title>Login Page</title>
-<link rel="stylesheet" href="../css/style.css">
 </head>
 <body onload='document.loginForm.username.focus();'>
 

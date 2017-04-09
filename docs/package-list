@@ -1,6 +1,7 @@
-config
-config.core
-dao
-entity
-service
-web
+fr.epsi.config
+fr.epsi.config.core
+fr.epsi.entity
+fr.epsi.users.dao
+fr.epsi.users.model
+fr.epsi.users.service
+fr.epsi.web.controller

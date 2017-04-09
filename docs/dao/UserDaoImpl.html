@@ -100,7 +100,7 @@ var activeTableTab = "activeTableTab";
 <li>java.lang.Object</li>
 <li>
 <ul class="inheritance">
-<li>dao.UserDaoImpl</li>
+<li>fr.epsi.users.dao.UserDaoImpl</li>
 </ul>
 </li>
 </ul>
@@ -154,7 +154,7 @@ implements <a href="../dao/UserDao.html" title="interface in dao">UserDao</a></p
 </tr>
 <tr id="i0" class="altColor">
 <td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../dao/UserDaoImpl.html#addUser-entity.User-">addUser</a></span>(<a href="../entity/User.html" title="class in entity">User</a>&nbsp;user)</code>
+<td class="colLast"><code><span class="memberNameLink"><a href="../dao/UserDaoImpl.html#addUser-User-">addUser</a></span>(<a href="../entity/User.html" title="class in entity">User</a>&nbsp;user)</code>
 <div class="block">Make a user persistent in database.</div>
 </td>
 </tr>
@@ -178,7 +178,7 @@ implements <a href="../dao/UserDao.html" title="interface in dao">UserDao</a></p
 </tr>
 <tr id="i4" class="altColor">
 <td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../dao/UserDaoImpl.html#removeUser-entity.User-">removeUser</a></span>(<a href="../entity/User.html" title="class in entity">User</a>&nbsp;user)</code>
+<td class="colLast"><code><span class="memberNameLink"><a href="../dao/UserDaoImpl.html#removeUser-User-">removeUser</a></span>(<a href="../entity/User.html" title="class in entity">User</a>&nbsp;user)</code>
 <div class="block">Delete a persistent User from the database.</div>
 </td>
 </tr>
@@ -188,7 +188,7 @@ implements <a href="../dao/UserDao.html" title="interface in dao">UserDao</a></p
 </tr>
 <tr id="i6" class="altColor">
 <td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../dao/UserDaoImpl.html#updateUser-entity.User-">updateUser</a></span>(<a href="../entity/User.html" title="class in entity">User</a>&nbsp;user)</code>
+<td class="colLast"><code><span class="memberNameLink"><a href="../dao/UserDaoImpl.html#updateUser-User-">updateUser</a></span>(<a href="../entity/User.html" title="class in entity">User</a>&nbsp;user)</code>
 <div class="block">Update a persistent user.</div>
 </td>
 </tr>
@@ -248,11 +248,11 @@ implements <a href="../dao/UserDao.html" title="interface in dao">UserDao</a></p
 <h4>addUser</h4>
 <pre>@Transactional
 public&nbsp;void&nbsp;addUser(<a href="../entity/User.html" title="class in entity">User</a>&nbsp;user)</pre>
-<div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="../dao/UserDao.html#addUser-entity.User-">UserDao</a></code></span></div>
+<div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="../dao/UserDao.html#addUser-User-">UserDao</a></code></span></div>
 <div class="block">Make a user persistent in database.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../dao/UserDao.html#addUser-entity.User-">addUser</a></code>&nbsp;in interface&nbsp;<code><a href="../dao/UserDao.html" title="interface in dao">UserDao</a></code></dd>
+<dd><code><a href="../dao/UserDao.html#addUser-User-">addUser</a></code>&nbsp;in interface&nbsp;<code><a href="../dao/UserDao.html" title="interface in dao">UserDao</a></code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>user</code> - User who will be insert.</dd>
 </dl>
@@ -266,11 +266,11 @@ public&nbsp;void&nbsp;addUser(<a href="../entity/User.html" title="class in enti
 <h4>updateUser</h4>
 <pre>@Transactional
 public&nbsp;void&nbsp;updateUser(<a href="../entity/User.html" title="class in entity">User</a>&nbsp;user)</pre>
-<div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="../dao/UserDao.html#updateUser-entity.User-">UserDao</a></code></span></div>
+<div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="../dao/UserDao.html#updateUser-User-">UserDao</a></code></span></div>
 <div class="block">Update a persistent user.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../dao/UserDao.html#updateUser-entity.User-">updateUser</a></code>&nbsp;in interface&nbsp;<code><a href="../dao/UserDao.html" title="interface in dao">UserDao</a></code></dd>
+<dd><code><a href="../dao/UserDao.html#updateUser-User-">updateUser</a></code>&nbsp;in interface&nbsp;<code><a href="../dao/UserDao.html" title="interface in dao">UserDao</a></code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>user</code> - User who will be updated</dd>
 </dl>
@@ -342,11 +342,11 @@ public&nbsp;<a href="../entity/User.html" title="class in entity">User</a>&nbsp;
 <h4>removeUser</h4>
 <pre>@Transactional
 public&nbsp;void&nbsp;removeUser(<a href="../entity/User.html" title="class in entity">User</a>&nbsp;user)</pre>
-<div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="../dao/UserDao.html#removeUser-entity.User-">UserDao</a></code></span></div>
+<div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="../dao/UserDao.html#removeUser-User-">UserDao</a></code></span></div>
 <div class="block">Delete a persistent User from the database.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../dao/UserDao.html#removeUser-entity.User-">removeUser</a></code>&nbsp;in interface&nbsp;<code><a href="../dao/UserDao.html" title="interface in dao">UserDao</a></code></dd>
+<dd><code><a href="../dao/UserDao.html#removeUser-User-">removeUser</a></code>&nbsp;in interface&nbsp;<code><a href="../dao/UserDao.html" title="interface in dao">UserDao</a></code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>user</code> - User who will be removed</dd>
 </dl>
