@@ -10,9 +10,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.mindrot.jbcrypt.BCrypt;
@@ -185,7 +183,7 @@ public class User implements Serializable {
      * @return true id successfully added, false if role already exist;
      */
     public boolean addRole(UserRoles.Role role) {
-        return userRoles.add(new UserRoles(this, role));
+        return userRoles.add(new UserRoles(id, role));
     }
     
     /**

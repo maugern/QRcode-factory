@@ -30,18 +30,21 @@
 		<jersey.version>2.22.1</jersey.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java-version>1.7</java-version>
+		<javax.servlet-api>4.0.0-b05</javax.servlet-api>
+		<jstl.version>1.2</jstl.version>
 		<org.springframework-version>4.3.7.RELEASE</org.springframework-version>
 		<org.springframework.security-version>4.2.2.RELEASE</org.springframework.security-version>
 		<org.springframework.boot>1.5.2.RELEASE</org.springframework.boot>
 		<org.aspectj-version>1.7.4</org.aspectj-version>
 		<org.slf4j-version>1.7.5</org.slf4j-version>
 		<hibernate.version>5.2.6.Final</hibernate.version>
+		<dbcp.version>1.4</dbcp.version>
 		<org.zxing-version>3.3.0</org.zxing-version>
 		<m2eclipse.wtp.contextRoot>/${project.artifactId}</m2eclipse.wtp.contextRoot>
-		<commons-codec.version>1.9</commons-codec.version>
 	</properties>
 
 	<build>
+		<finalName>QRcode-Factory</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -71,11 +74,6 @@
 						<goals>
 							<goal>run</goal>
 						</goals>
-						<configuration>
-							<addContextWarDependencies>true</addContextWarDependencies>
-							<path>/{project.artifactId}</path>
-							<fork>true</fork>
-						</configuration>
 					</execution>
 				</executions>
 			</plugin>
@@ -111,14 +109,10 @@
 			<artifactId>spring-webmvc</artifactId>
 			<version>${org.springframework-version}</version>
 		</dependency>
+
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-aspects</artifactId>
-			<version>${org.springframework-version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-tx</artifactId>
 			<version>${org.springframework-version}</version>
 		</dependency>
 		<dependency>
@@ -128,18 +122,8 @@
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
-			<artifactId>spring-context</artifactId>
-			<version>${org.springframework-version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
 			<artifactId>spring-test</artifactId>
 			<version>${org.springframework-version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-core</artifactId>
-			<version>${org.springframework.security-version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.security</groupId>
@@ -150,30 +134,6 @@
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-config</artifactId>
 			<version>${org.springframework.security-version}</version>
-		</dependency>
-
-		<!-- Because if i don't have this the server doesn't start for obscure reason -->
-		<dependency>
-			<groupId>org.springframework.data</groupId>
-			<artifactId>spring-data-jpa</artifactId>
-			<version>1.5.1.RELEASE</version>
-		</dependency>
-
-		<!-- Spring boot -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
-			<version>${org.springframework.boot}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-security</artifactId>
-			<version>${org.springframework.boot}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-remote-shell</artifactId>
-			<version>${org.springframework.boot}</version>
 		</dependency>
 
 		<!-- Spring Security JSP Taglib -->
@@ -190,6 +150,19 @@
 			<version>9.1-901-1.jdbc4</version>
 		</dependency>
 
+		<!-- database pool -->
+		<dependency>
+			<groupId>commons-dbcp</groupId>
+			<artifactId>commons-dbcp</artifactId>
+			<version>${dbcp.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>3.1.0</version>
+			<scope>provided</scope>
+		</dependency>
 
 		<!-- hibernate -->
 		<dependency>
@@ -202,27 +175,6 @@
 			<artifactId>hibernate-entitymanager</artifactId>
 			<version>${hibernate.version}</version>
 		</dependency>
-
-		<dependency>
-			<groupId>commons-codec</groupId>
-			<artifactId>commons-codec</artifactId>
-			<version>${commons-codec.version}</version>
-		</dependency>
-
-		<!-- Jstl for tablib "java core jsp/jstl in web.xml -->
-		<dependency>
-			<groupId>jstl</groupId>
-			<artifactId>jstl</artifactId>
-			<version>1.2</version>
-		</dependency>
-		<!-- We don't need this anymore because tomcat 
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>javax.servlet-api</artifactId>
-			<version>3.0.1</version>
-			<scope>provided</scope>
-		</dependency>
-		-->
 
 		<!-- Activate the Logs !! -->
 		<dependency>
