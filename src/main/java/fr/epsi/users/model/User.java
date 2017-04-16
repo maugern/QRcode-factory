@@ -4,14 +4,7 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import org.mindrot.jbcrypt.BCrypt;
 
@@ -42,9 +35,12 @@ public class User implements Serializable {
     
     @Column(name="passwdHash", nullable = false)
     private String passwdHash;
-    
-    @ManyToOne(fetch = FetchType.LAZY, targetEntity = UserRoles.class)
+
+    @Transient
     private Set<UserRoles> userRoles = new HashSet<UserRoles>(0);
+
+    /** Default contructor */
+     public User(){}
 
     /**
      * User constructor.
@@ -160,6 +156,14 @@ public class User implements Serializable {
     }
 
     /**
+     * Set passwdHash
+     * @param passwdHash User hashed password
+     */
+    public void setPasswdHash(String passwdHash) {
+        this.passwdHash = passwdHash;
+    }
+
+    /**
      * GenerateSalt log_rounds parameter determines the complexity
      * the work factor is 2**log_rounds, and the default is 12.
      * Always remember in computer science, is only a pseudo-random number.
@@ -168,7 +172,8 @@ public class User implements Serializable {
     private String generateSalt() {
         return BCrypt.gensalt(12); // increase default values, who is 10.
     }
-    
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "users")
     public Set<UserRoles> getUserRole() {
         return this.userRoles;
     }

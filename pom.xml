@@ -1,9 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>fr.epsi</groupId>
-	<artifactId>qrcode-factory</artifactId>
+	<artifactId>QRcode-Factory</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 	<name>QRcode Factory</name>
@@ -29,14 +30,14 @@
 	<properties>
 		<jersey.version>2.22.1</jersey.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<java-version>1.7</java-version>
+		<java-version>1.8</java-version>
 		<javax.servlet-api>4.0.0-b05</javax.servlet-api>
 		<jstl.version>1.2</jstl.version>
 		<org.springframework-version>4.3.7.RELEASE</org.springframework-version>
 		<org.springframework.security-version>4.2.2.RELEASE</org.springframework.security-version>
 		<org.springframework.boot>1.5.2.RELEASE</org.springframework.boot>
 		<org.aspectj-version>1.7.4</org.aspectj-version>
-		<org.slf4j-version>1.7.5</org.slf4j-version>
+		<slf4j.version>1.7.5</slf4j.version>
 		<hibernate.version>5.2.6.Final</hibernate.version>
 		<dbcp.version>1.4</dbcp.version>
 		<org.zxing-version>3.3.0</org.zxing-version>
@@ -64,31 +65,45 @@
 				</configuration>
 			</plugin>
 			<plugin>
-				<groupId>org.apache.tomcat.maven</groupId>
-				<artifactId>tomcat7-maven-plugin</artifactId>
-				<version>2.2</version>
-				<executions>
-					<execution>
-						<id>start-tomcat</id>
-						<phase>pre-integration-test</phase>
-						<goals>
-							<goal>run</goal>
-						</goals>
-					</execution>
-				</executions>
+				<groupId>org.eclipse.jetty</groupId>
+				<artifactId>jetty-maven-plugin</artifactId>
+				<version>9.3.0.M2</version>
+				<configuration>
+					<scanIntervalSeconds>5</scanIntervalSeconds>
+					<war>./target/QRcode-Factory.war</war>
+                    <webApp>
+                        <webInfIncludeJarPattern>^$</webInfIncludeJarPattern>
+                        <containerIncludeJarPattern>^$</containerIncludeJarPattern>
+                    </webApp>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
 
 	<dependencies>
 
-		<!-- Apache client -->
-		<dependency>
-			<groupId>org.apache.httpcomponents</groupId>
-			<artifactId>httpclient</artifactId>
-			<version>4.3.3</version>
-			<scope>test</scope>
-		</dependency>
+        <!-- jersey & glassfish -->
+        <dependency>
+            <groupId>org.glassfish.jersey.containers</groupId>
+            <artifactId>jersey-container-servlet</artifactId>
+            <version>${jersey.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.jersey.media</groupId>
+            <artifactId>jersey-media-moxy</artifactId>
+            <version>${jersey.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.jersey.ext</groupId>
+            <artifactId>jersey-mvc-jsp</artifactId>
+            <version>${jersey.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.jersey.test-framework.providers</groupId>
+            <artifactId>jersey-test-framework-provider-simple</artifactId>
+            <version>${jersey.version}</version>
+            <scope>test</scope>
+        </dependency>
 
 		<!-- Unit test with Junit v4 -->
 		<dependency>
@@ -103,6 +118,12 @@
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-core</artifactId>
 			<version>${org.springframework-version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>commons-logging</groupId>
+                    <artifactId>commons-logging</artifactId>
+                </exclusion>
+            </exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -143,6 +164,19 @@
 			<version>${org.springframework.security-version}</version>
 		</dependency>
 
+        <!-- spring boot for jersey -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jersey</artifactId>
+            <version>1.5.2.RELEASE</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-tomcat</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
 		<!-- https://mvnrepository.com/artifact/postgresql/postgresql -->
 		<dependency>
 			<groupId>postgresql</groupId>
@@ -157,13 +191,6 @@
 			<version>${dbcp.version}</version>
 		</dependency>
 
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>javax.servlet-api</artifactId>
-			<version>3.1.0</version>
-			<scope>provided</scope>
-		</dependency>
-
 		<!-- hibernate -->
 		<dependency>
 			<groupId>org.hibernate</groupId>
@@ -176,12 +203,36 @@
 			<version>${hibernate.version}</version>
 		</dependency>
 
-		<!-- Activate the Logs !! -->
+        <!-- javax.servlet -->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <version>2.5</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>jstl</groupId>
+            <artifactId>jstl</artifactId>
+            <version>1.2</version>
+        </dependency>
+
+        <!-- Activate the Logs !! -->
 		<dependency>
 			<groupId>ch.qos.logback</groupId>
 			<artifactId>logback-classic</artifactId>
 			<version>1.1.9</version>
 		</dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>jcl-over-slf4j</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+
 
 		<!-- Bcrypt, a blowfish hashing code, designed to raise the cost of off-line 
 			brute force or raindow attaque (aka JohnTheRipper). More information : https://en.wikipedia.org/wiki/Bcrypt -->
@@ -201,8 +252,8 @@
 			<groupId>com.google.zxing</groupId>
 			<artifactId>javase</artifactId>
 			<version>${org.zxing-version}</version>
-		</dependency>
+        </dependency>
 
-	</dependencies>
+    </dependencies>
 
 </project>

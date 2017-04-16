@@ -2,20 +2,13 @@ package fr.epsi.users.model;
 
 import java.io.Serializable;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
+import javax.persistence.*;
 
 /**
  * User roles
  */
 @Entity
-@Table(name="user_roles", catalog="test", uniqueConstraints =  @UniqueConstraint(columnNames = {"id", "role"}))
+@Table(name="user_roles", uniqueConstraints =  @UniqueConstraint(columnNames = {"id", "role"}))
 public class UserRoles implements Serializable {
 
     private static final long serialVersionUID = -3668023374571098564L;
@@ -38,6 +31,9 @@ public class UserRoles implements Serializable {
     @Column(name = "role", nullable = false)
     private Role role;
 
+    /** Default constructor */
+    public UserRoles(){}
+
     /**
      * UserRoles Constructor
      * @param user user affected by the role
@@ -52,8 +48,16 @@ public class UserRoles implements Serializable {
         return id;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public Role getRole() {
         return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 
     @Override
@@ -79,9 +83,7 @@ public class UserRoles implements Serializable {
                 return false;
         } else if (!id.equals(other.id))
             return false;
-        if (role != other.role)
-            return false;
-        return true;
+        return role == other.role;
     }
     
 }

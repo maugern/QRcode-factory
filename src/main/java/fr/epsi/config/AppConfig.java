@@ -1,7 +1,5 @@
 package fr.epsi.config;
 
-import java.util.Properties;
-
 import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,21 +7,25 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
-
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBuilder;
 import org.springframework.security.access.SecurityConfig;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
+import java.util.Properties;
+
 @EnableWebMvc
 @Configuration
 @ComponentScan({ "fr.epsi.*" })
+@EnableTransactionManagement
 @Import({ SecurityConfig.class })
 public class AppConfig {
 
-    private static final Logger logger = LoggerFactory.getLogger(AppConfig.class);
+    private final static Logger logger = LoggerFactory.getLogger(AppConfig.class);
 
     @Bean
     public SessionFactory sessionFactory() {
@@ -58,17 +60,23 @@ public class AppConfig {
         driverManagerDataSource.setDriverClassName("org.postgresql.Driver");
         StringBuilder url = new StringBuilder("jdbc:postgresql://");
         url.append(System.getenv("PGHOST") == null ? "localhost" : System.getenv("PGHOST"));
-        url.append(":"); 
+        url.append(":");
         url.append(System.getenv("PGPORT") == null ? "5432" : System.getenv("PGPORT"));
         url.append("/");
         url.append(System.getenv("PGDATABASE") == null ? "postgres" : System.getenv("PGDATABASE"));
-        logger.info("Postgres URL : " + url);
+        url.append("?sslmode=require");
         driverManagerDataSource.setUrl(url.toString());
+        logger.info("Postgres URI : " + url);
         driverManagerDataSource.setSchema(System.getenv("POSTGRES_DB") == null ? "postgres" : System.getenv("POSTGRES_DB"));
         driverManagerDataSource.setUsername(System.getenv("PGUSER") == null ? "postgres" : System.getenv("PGUSER"));
         driverManagerDataSource.setPassword(System.getenv("PGPASSWORD") == null ? "postgres" : System.getenv("PGUSER"));
         return driverManagerDataSource;
-}
+    }
+
+    @Bean
+    public HibernateTransactionManager txManager() {
+        return new HibernateTransactionManager(sessionFactory());
+    }
 
     @Bean
     public InternalResourceViewResolver viewResolver() {
