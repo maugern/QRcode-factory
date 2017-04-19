@@ -3,7 +3,6 @@ package fr.epsi.users.dao;
 import java.util.List;
 
 import fr.epsi.users.model.User;
-import org.springframework.stereotype.Repository;
 
 public interface UserDao {
 
