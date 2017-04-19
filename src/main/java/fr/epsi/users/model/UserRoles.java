@@ -2,31 +2,29 @@ package fr.epsi.users.model;
 
 import java.io.Serializable;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 /**
  * User roles
  */
 @Entity
-@Table(name="user_roles", uniqueConstraints =  @UniqueConstraint(columnNames = {"id", "role"}))
+@Table(name = "user_roles", uniqueConstraints = @UniqueConstraint(columnNames = { "id", "role" }))
 public class UserRoles implements Serializable {
-
-    private static final long serialVersionUID = -3668023374571098564L;
-
-    /**
-     * Role that can be attributed to User
-     */
-    public enum Role {
-        /** Admin role */
-        ROLE_ADMIN,
-        /** User role */
-        ROLE_USER
-    }
+    
+    private static final long serialVersionUID = 6333055865276880516L;
 
     @Id
-    @Column(name = "id", nullable = false)
-    private Long id;
-
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id", nullable = false)
+    private User user;
+    
     @Id
     @Column(name = "role", nullable = false)
     private Role role;
@@ -39,17 +37,17 @@ public class UserRoles implements Serializable {
      * @param user user affected by the role
      * @param role role to attribute
      */
-    public UserRoles (Long id, Role role) {
-        this.id = id;
+    public UserRoles (User user, Role role) {
+        this.setUser(user);
         this.role = role;
     }
 
-    public Long getId() {
-        return id;
+    public User getUser() {
+        return user;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Role getRole() {
@@ -64,8 +62,8 @@ public class UserRoles implements Serializable {
     public int hashCode() {
         final int prime = 37;
         int result = 1;
-        result = prime * result + ((id == null) ? 0 : id.hashCode());
         result = prime * result + ((role == null) ? 0 : role.hashCode());
+        result = prime * result + ((user == null) ? 0 : user.hashCode());
         return result;
     }
 
@@ -78,12 +76,14 @@ public class UserRoles implements Serializable {
         if (getClass() != obj.getClass())
             return false;
         UserRoles other = (UserRoles) obj;
-        if (id == null) {
-            if (other.id != null)
-                return false;
-        } else if (!id.equals(other.id))
+        if (role != other.role)
             return false;
-        return role == other.role;
+        if (user == null) {
+            if (other.user != null)
+                return false;
+        } else if (!user.equals(other.user))
+            return false;
+        return true;
     }
-    
+
 }

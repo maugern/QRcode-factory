@@ -4,11 +4,16 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import org.mindrot.jbcrypt.BCrypt;
-
-import fr.epsi.users.model.UserRoles.Role;
 
 /**
  * User class
@@ -36,7 +41,7 @@ public class User implements Serializable {
     @Column(name="passwdHash", nullable = false)
     private String passwdHash;
 
-    @Transient
+    @OneToMany(fetch = FetchType.LAZY)
     private Set<UserRoles> userRoles = new HashSet<UserRoles>(0);
 
     /** Default contructor */
@@ -187,8 +192,8 @@ public class User implements Serializable {
      * @param role role to add to user 
      * @return true id successfully added, false if role already exist;
      */
-    public boolean addRole(UserRoles.Role role) {
-        return userRoles.add(new UserRoles(id, role));
+    public boolean addRole(Role role) {
+        return userRoles.add(new UserRoles(this, role));
     }
     
     /**
@@ -196,7 +201,7 @@ public class User implements Serializable {
      * @param role role to remove to user 
      * @return true id successfully remove, false if role not exist;
      */
-    public boolean removeRole(UserRoles.Role role) {
+    public boolean removeRole(Role role) {
         for(UserRoles userRole : userRoles) {
             if (userRole.getRole().equals(role)) {
                 return userRoles.remove(userRole);
