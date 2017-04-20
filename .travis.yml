@@ -1,7 +1,6 @@
 language: java
 jdk:
-  - oraclejdk7
-  - openjdk7
+  - oraclejdk8
 install: mvn install -Dmaven.compiler.target=3.6.1 -Dmaven.compiler.source=3.6.1 -DskipTests=false
 script:
     - mvn compile -Dmaven.compiler.target=3.6.1 -Dmaven.compiler.source=3.6.1
