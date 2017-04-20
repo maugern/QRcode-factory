@@ -15,6 +15,8 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.Properties;
 
 @EnableWebMvc
@@ -43,32 +45,37 @@ public class AppConfig {
 
     /**
      * Return a dataSource based on Postgresql environment variable.
-     * Use the following environment variables :
-     * <ul>
-     *  <li>PGHOST or "localhost" if null</li>
-     *  <li>PGPORT or "5432" if null</li>
-     *  <li>PGDATABASE or "postgres" if null</li>
-     *  <li>PGUSER or "postgres" if null</li>
-     *  <li>PGPASSWORD or "" if null</li>
-     * </ul>
-     * @return a new dataSource
+     * Use DATABASE_URL environment variables.
+     * This method is copy/pasted from
+     * <a href="https://devcenter.heroku.com/articles/heroku-postgresql#connecting-in-java">
+     * heroku dev blog</a>.
+     * @return dataSource
      */
     @Bean(name = "dataSource")
     public DriverManagerDataSource dataSource() {
+
+        String env = System.getenv("DATABASE_URL");
+        if (env == null) {
+            logger.error("Environment variable \"DATABASE_URL\" is not found." +
+                         "Maybe you forget to define this variable (not caused by a wrong URL).",
+                         new NullPointerException("ENVIRONMENT VARIABLE \"DATABASE_URL\" NOT FOUND"));
+        }
+
+        URI dbUri = null;
+        try {
+            dbUri = new URI(env);
+        } catch (URISyntaxException e) {
+            logger.error("Environment variable \"DATABASE_URL\" had a malformed URL",e);
+        }
+
+        String username = dbUri.getUserInfo().split(":")[0];
+        String password = dbUri.getUserInfo().split(":")[1];
+        String dbUrl = "jdbc:postgresql://" + dbUri.getHost() + ":" + dbUri.getPort() + dbUri.getPath() + "?sslmode=require";
+
         DriverManagerDataSource driverManagerDataSource = new DriverManagerDataSource();
-        driverManagerDataSource.setDriverClassName("org.postgresql.Driver");
-        StringBuilder url = new StringBuilder("jdbc:postgresql://");
-        url.append(System.getenv("PGHOST") == null ? "localhost" : System.getenv("PGHOST"));
-        url.append(":");
-        url.append(System.getenv("PGPORT") == null ? "5432" : System.getenv("PGPORT"));
-        url.append("/");
-        url.append(System.getenv("PGDATABASE") == null ? "postgres" : System.getenv("PGDATABASE"));
-        url.append("?sslmode=require");
-        driverManagerDataSource.setUrl(url.toString());
-        logger.info("Postgres URI : " + url);
-        driverManagerDataSource.setSchema(System.getenv("POSTGRES_DB") == null ? "postgres" : System.getenv("POSTGRES_DB"));
-        driverManagerDataSource.setUsername(System.getenv("PGUSER") == null ? "postgres" : System.getenv("PGUSER"));
-        driverManagerDataSource.setPassword(System.getenv("PGPASSWORD") == null ? "postgres" : System.getenv("PGUSER"));
+        driverManagerDataSource.setUrl(dbUrl);
+        driverManagerDataSource.setUsername(username);
+        driverManagerDataSource.setPassword(password);
         return driverManagerDataSource;
     }
 

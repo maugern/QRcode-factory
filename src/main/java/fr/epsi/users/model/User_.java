@@ -1,5 +1,6 @@
 package fr.epsi.users.model;
 
+import javax.persistence.metamodel.Attribute;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 
@@ -27,7 +28,8 @@ public class User_ {
     
     /** User passwdHash attribute, associated with passwdHash column */
     public static volatile SingularAttribute<User, String> passwdHash;
-    
+
     /** User userRoles attribute, associated with user_roles table */
-    public static volatile SingularAttribute<User, Set> userRoles;
+    public static volatile Attribute<User, Set> userRoles;
+
 }
