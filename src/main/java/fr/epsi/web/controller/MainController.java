@@ -1,8 +1,12 @@
 package fr.epsi.web.controller;
 
+import fr.epsi.users.service.MyUserDetailsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.LockedException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -12,10 +16,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
+
 @Controller
 public class MainController {
 
-    private static final Logger logger = LoggerFactory.getLogger(MainController.class);
+    private final Logger logger = LoggerFactory.getLogger(MainController.class);
 
     @RequestMapping(value = { "/", "/welcome**" }, method = RequestMethod.GET)
     public ModelAndView defaultPage() {
@@ -38,11 +44,12 @@ public class MainController {
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public ModelAndView login(@RequestParam(value = "error", required = false) String error,
-            @RequestParam(value = "logout", required = false) String logout) {
+                              @RequestParam(value = "logout", required = false) String logout,
+                              HttpServletRequest request) {
 
         ModelAndView model = new ModelAndView();
         if (error != null) {
-            model.addObject("error", "Invalid username and password!");
+            model.addObject("error", getErrorMessage(request, "SPRING_SECURITY_EXCEPTION"));
         }
 
         if (logout != null) {
@@ -55,19 +62,7 @@ public class MainController {
 
     @RequestMapping(value = "/401", method = RequestMethod.GET)
     public ModelAndView accesssUnauthorized() {
-
-        ModelAndView model = new ModelAndView();
-
-        //check if user is login
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (!(auth instanceof AnonymousAuthenticationToken)) {
-            UserDetails userDetail = (UserDetails) auth.getPrincipal();
-            logger.info("User detail" + userDetail);
-            model.addObject("username", userDetail.getUsername());
-        }
-
-        model.setViewName("401");
-        return model;
+        return new ModelAndView("401");
     }
 
     @RequestMapping(value = "/403", method = RequestMethod.GET)
@@ -85,6 +80,27 @@ public class MainController {
 
         model.setViewName("403");
         return model;
+    }
+
+    /**
+     * Create personalised error message
+     * @param request httpRequest
+     * @param key the request attribute
+     * @return "Invalid username or password" for login exception, then exception messsage
+     */
+    private String getErrorMessage(HttpServletRequest request, String key) {
+        String error;
+        Exception exception = (Exception) request.getSession().getAttribute(key);
+
+        if (exception instanceof BadCredentialsException) {
+            error = "Invalid username or password";
+        } else if (exception instanceof LockedException) {
+            error = exception.getMessage();
+        } else {
+            error = "Invalid username or password";
+        }
+
+        return error;
     }
 
 }

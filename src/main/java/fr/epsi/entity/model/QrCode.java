@@ -1,8 +1,9 @@
-package fr.epsi.entity;
+package fr.epsi.entity.model;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.Serializable;
 
 import org.slf4j.LoggerFactory;
 
@@ -15,9 +16,23 @@ import com.google.zxing.qrcode.QRCodeWriter;
 /**
  * Class used to generate QRcode
  */
-public class QrCode {
+public class QrCode implements Serializable {
 
+    // TODO add serial UI
+
+    // TODO add non instenciable entity annotation
     private static final org.slf4j.Logger logger = LoggerFactory.getLogger(QrCode.class);
+
+    // TODO add id
+
+
+    public String genarateHashid() {
+        // TODO
+        // GENERATE RANDOM SECURE
+        // ENCODE WITH ID
+        // return hashid
+        return null;
+    }
 
     public QrCode() {}
 

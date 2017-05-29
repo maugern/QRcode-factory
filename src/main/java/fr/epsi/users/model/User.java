@@ -13,7 +13,9 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.validator.constraints.Length;
 import org.mindrot.jbcrypt.BCrypt;
+import org.springframework.security.core.userdetails.UserDetails;
 
 /**
  * User class
@@ -29,16 +31,17 @@ public class User implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name="alias", nullable = false, unique = true)      
+    @Column(name="alias", nullable = false, unique = true, length = 40)
     private String alias;
     
-    @Column(name="name")
+    @Column(name="name", length = 40)
     private String name;
     
-    @Column(name="email", nullable = false, unique = true)
+    @Column(name="email", nullable = false, unique = true, length = 254)
     private String email;
     
     @Column(name="passwdHash", nullable = false)
+    @Length(min=59,max=60)
     private String passwdHash;
 
     @OneToMany(fetch = FetchType.LAZY)
@@ -139,7 +142,7 @@ public class User implements Serializable {
      * to protect against rainbow attacks.
      * @param password non crypted
      */
-    private void setPassword(String password) {
+    public void setPassword(String password) {
         this.passwdHash = BCrypt.hashpw(password, generateSalt());
     }
 
@@ -161,7 +164,8 @@ public class User implements Serializable {
     }
 
     /**
-     * Set passwdHash
+     * Set passwdHash. Be careful: It must be encrypted password.
+     * If you want to set a new password from non-crypted string, use @setPassword
      * @param passwdHash User hashed password
      */
     public void setPasswdHash(String passwdHash) {

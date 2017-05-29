@@ -20,7 +20,7 @@ import fr.epsi.users.model.UserRoles;
 
 @Service("userDetailsService")
 public class MyUserDetailsService implements UserDetailsService {
-    
+
     @Autowired
     private UserDao userDao;
 
@@ -30,32 +30,31 @@ public class MyUserDetailsService implements UserDetailsService {
     @Override
     @Transactional (readOnly=true)
     public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException {
-        User user = userDao.getUserByAlias(username);
-        List<GrantedAuthority> authorities = buildUserAuthority(user.getUserRole());
-        return buildUserForAuthentication(user, authorities);
+        User user = userDao.getUserByAlias(username).get();
+        return buildUserForAuthentication(user, buildUserAuthority(user.getUserRole()));
     }
 
     /**
-     * Method to convert User to springframework.security.core.userdetails.User
+     * Method to convert fr.epsi.users.model.User to springframework.security.core.userdetails.User
+     * User account is implicitly enabled and non expired
      * @param user
      * @param authorities
      * @return new userdetails.User with authority
      */
-    private UserDetails buildUserForAuthentication(User user, List<GrantedAuthority> authorities) {
+    private org.springframework.security.core.userdetails.User buildUserForAuthentication(fr.epsi.users.model.User user, List<GrantedAuthority> authorities) {
         return new org.springframework.security.core.userdetails.User(user.getAlias(), user.getPasswdHash(), true, true, true, true, authorities);
     }
 
     /**
      * Build User authority based on his role 
-     * @param userRole
+     * @param userRoles
      * @return List of granted authority
      */
     private List<GrantedAuthority> buildUserAuthority(Set<UserRoles> userRoles) {
         Set<GrantedAuthority> setAuths = new HashSet<GrantedAuthority>();
         for (UserRoles userRole : userRoles)
             setAuths.add(new SimpleGrantedAuthority(userRole.getRole().toString()));
-        List<GrantedAuthority> result = new ArrayList<GrantedAuthority>(setAuths);
-        return result;
+        return new ArrayList<GrantedAuthority>(setAuths);
     }
 
 }

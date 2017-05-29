@@ -1,9 +1,9 @@
 -- User's table
 CREATE TABLE IF NOT EXISTS users (
     id SERIAL PRIMARY KEY,
-    name VARCHAR(30), -- arbitrary size
-    alias VARCHAR(30) UNIQUE, -- must be unique because used for login
-    email VARCHAR(256) UNIQUE, -- 256 character max (RFC 2821)
+    name VARCHAR(40), -- arbitrary size
+    alias VARCHAR(40) UNIQUE, -- must be unique because used for login
+    email VARCHAR(254) UNIQUE, -- 254 character max (RFC 2821)
     passwdHash VARCHAR(60) NOT NULL -- Bcrypt use 3 or 4 (hashing format id) + 2 (cost parameter) + 22 (salt) + 31 (encrypted ouput) = 59 or 60 characters
 );
 
@@ -12,4 +12,11 @@ CREATE TABLE IF NOT EXISTS user_roles (
     id INTEGER REFERENCES users(id) ON DELETE CASCADE,
     role ROLE,
     PRIMARY KEY (id, role)
+);
+
+CREATE TABLE IF NOT EXISTS guestbook (
+    id SERIAL PRIMARY KEY,
+    author INTEGER REFERENCES users(id) ON DELETE CASCADE,
+    creation TIMESTAMP NOT NULL DEFAULT CURRENT_DATE,
+    commentary VARCHAR(140)
 );

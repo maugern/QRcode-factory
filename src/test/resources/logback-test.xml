@@ -7,10 +7,10 @@
         </encoder>
     </appender>
 
-    <root level="trace">
+    <root level="debug">
         <appender-ref ref="STDOUT"/>
     </root>
 
-    <logger name="qrcode-factory" level="trace" additivity="false" />
+    <logger name="qrcode-factory" level="debug" additivity="false" />
 
 </configuration>

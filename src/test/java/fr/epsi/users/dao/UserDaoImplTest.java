@@ -1,71 +1,82 @@
 package fr.epsi.users.dao;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
-import java.util.List;
-
-import org.junit.Ignore;
-import org.junit.Test;
+import fr.epsi.users.model.User;
+import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.Rollback;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-import fr.epsi.users.model.User;
+import java.util.Optional;
 
-import org.springframework.test.annotation.Rollback;
+import static org.junit.Assert.*;
 
+@ContextConfiguration(locations = "file:src/test/resources/application-context-test.xml")
+@RunWith(SpringJUnit4ClassRunner.class)
 public class UserDaoImplTest {
 
-    @Autowired private UserDao userdao;
+    @Autowired
+    private UserDao userdao;
 
-    @Ignore
     @Test
     @Transactional
     @Rollback(true)
-    public void test_persistent_addUser() {
+    public void test_saving_user() {
         User foo = new User("foo", "foo","foo@foo.com" , "F0O");
-
-        userdao.addUser(foo);
-        List<User> users = userdao.listUsers();
-
-        assertTrue(foo.equals(users.get(0)));
+        User savedFoo = userdao.saveUser(foo).get();
+        assertEquals(savedFoo.getAlias(), foo.getAlias());
     }
 
-    @Ignore
+    @org.junit.jupiter.api.Test
+    @Transactional
+    @Rollback(true)
+    public void should_set_id_when_make_persistent() {
+        User foo = new User("foo", "foo", "foo@foo.com", "F0O");
+        assertNotNull(userdao.saveUser(foo).get().getId());
+    }
+
     @Test
     @Transactional
     @Rollback(true)
-    public void test_persistent_updateUser() {
+    public void test_updating_user() {
         User foo = new User("foo", "foo", "foo@foo.com", "F0O");
-
-        userdao.addUser(foo);
-        List<User> users = userdao.listUsers();
-
-        assertTrue(foo.equals(users.get(0)));
-
+        User savedFoo = userdao.saveUser(foo).get();
         foo.setName("bar");
-        userdao.updateUser(foo);
-
-        users = userdao.listUsers();
-        assertTrue("bar".equals(users.get(0).getName()));
+        User savedBar = userdao.saveUser(foo).get();
+        assertNotEquals(savedBar.getName(),savedFoo.getName());
     }
 
-    @Ignore
+    @org.junit.jupiter.api.Test
+    @Transactional
+    @Rollback(true)
+    public void test_findById() {
+        User foo = new User("foo", "foo", "foo@foo.com", "F0O");
+        User savedFoo = userdao.saveUser(foo).get();
+        Optional<User> retrievedFoo = userdao.getUserById(savedFoo.getId());
+        assertEquals(retrievedFoo.get(),savedFoo);
+    }
+
     @Test
+    @Transactional
+    @Rollback(true)
+    public void test_findByAlias() {
+        User foo = new User("foo", "foo", "foo@foo.com", "F0O");
+        User savedFoo = userdao.saveUser(foo).get();
+        Optional<User> retrievedFoo = userdao.getUserByAlias(savedFoo.getAlias());
+        assertEquals(retrievedFoo.get(),savedFoo);
+    }
+
+    @org.junit.jupiter.api.Test
     @Transactional
     @Rollback(true)
     public void test_persistent_removeUser() {
         User foo = new User("foo", "foo", "foo@foo.com", "F0O");
-
-        userdao.addUser(foo);
-        List<User> users = userdao.listUsers();
-
-        assertEquals(users.size(), 1);
-
-        userdao.removeUser(foo);
-
-        users = userdao.listUsers();
-        assertEquals(users.size(), 0);
+        User savedFoo = userdao.saveUser(foo).get();
+        assertTrue(userdao.getUserById(savedFoo.getId()).isPresent());
+        userdao.removeUser(savedFoo);
+        assertFalse(userdao.getUserById(savedFoo.getId()).isPresent());
     }
 
 }

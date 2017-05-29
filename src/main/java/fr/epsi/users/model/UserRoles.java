@@ -75,15 +75,9 @@ public class UserRoles implements Serializable {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        UserRoles other = (UserRoles) obj;
-        if (role != other.role)
-            return false;
-        if (user == null) {
-            if (other.user != null)
-                return false;
-        } else if (!user.equals(other.user))
-            return false;
-        return true;
+        UserRoles userRoles = (UserRoles) obj;
+        return userRoles.getRole().ordinal() == role.ordinal() &&
+               userRoles.getUser().equals(user);
     }
 
 }
