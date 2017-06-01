@@ -1,11 +1,5 @@
-# QRcode-factory's Dockerfile ==================================================
-# Release under MIT Licence
-# For more information, https://github.com/maugern/QRcode-factory
-
 # DEFINE IMAGE =================================================================
-# 9.1 version is the latest supported by maven central jdbc
-FROM postgres:9.1
-MAINTAINER Nicolas Mauger <https://github.com/maugern/>
+FROM postgres:latest
 
 # BEFORE INSTALL ===============================================================
 # Sets language to UTF8 : this works in pretty much all cases
