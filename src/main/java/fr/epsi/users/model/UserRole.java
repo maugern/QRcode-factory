@@ -1,8 +1,7 @@
 package fr.epsi.users.model;
 
-import java.io.Serializable;
-
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * User roles
@@ -15,7 +14,7 @@ public class UserRole implements Serializable {
 
     @Id
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
     private User user;
 
     @Id
@@ -23,31 +22,44 @@ public class UserRole implements Serializable {
     @Column(name = "role")
     private Role role;
 
-    /** Default constructor */
-    public UserRole(){}
-
     /**
      * UserRoles Constructor
      * @param user user affected by the role
      * @param role role to attribute
      */
-    public UserRole (User user, Role role) {
+    protected UserRole (User user, Role role) {
         this.setUser(user);
         this.role = role;
     }
 
+    /**
+     * Get user, associated with user_id column
+     * @return User associated to this role
+     */
     public User getUser() {
         return user;
     }
 
+    /**
+     * Set User
+     * @param user User to set
+     */
     public void setUser(User user) {
         this.user = user;
     }
 
+    /**
+     * Get role, associated with the column role
+     * @return role
+     */
     public Role getRole() {
         return role;
     }
 
+    /**
+     * Set role
+     * @param role role to Set
+     */
     public void setRole(Role role) {
         this.role = role;
     }

@@ -4,24 +4,16 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import org.hibernate.validator.constraints.Length;
 import org.mindrot.jbcrypt.BCrypt;
-import org.springframework.security.core.userdetails.UserDetails;
 
 /**
  * User class
  */
 @Entity
-@Table(name="users")
+@Table(name="user")
 public class User implements Serializable {
 
     private static final long serialVersionUID = 5316527283073594682L;
@@ -39,13 +31,13 @@ public class User implements Serializable {
     
     @Column(name="email", nullable = false, unique = true, length = 254)
     private String email;
-    
+
     @Column(name="passwdHash", nullable = false)
     @Length(min=59,max=60)
     private String passwdHash;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    private Set<UserRoles> userRoles = new HashSet<UserRoles>(0);
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
+    private Set<UserRole> userRoles = new HashSet<>(0);
 
     /** Default contructor */
      public User(){}
@@ -183,30 +175,34 @@ public class User implements Serializable {
     }
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "users")
-    public Set<UserRoles> getUserRole() {
+    public Set<UserRole> getUserRoles() {
         return this.userRoles;
     }
 
-    public void setUserRole(Set<UserRoles> userRoles) {
+    /**
+     * Set users roles
+     * @param userRoles users roles to set
+     */
+    public void setUserRoles(Set<UserRole> userRoles) {
         this.userRoles = userRoles;
     }
     
     /**
      * Add role to the Set of user role
      * @param role role to add to user 
-     * @return true id successfully added, false if role already exist;
+     * @return true if successfully added, false if role already exist;
      */
     public boolean addRole(Role role) {
-        return userRoles.add(new UserRoles(this, role));
+        return userRoles.add(new UserRole(this, role));
     }
     
     /**
      * Remove role to the Set of user role
      * @param role role to remove to user 
-     * @return true id successfully remove, false if role not exist;
+     * @return true if successfully remove, false if role not exist;
      */
     public boolean removeRole(Role role) {
-        for(UserRoles userRole : userRoles) {
+        for(UserRole userRole : userRoles) {
             if (userRole.getRole().equals(role)) {
                 return userRoles.remove(userRole);
             }
@@ -223,11 +219,11 @@ public class User implements Serializable {
         if (getClass() != obj.getClass())
             return false;
         User user = (User) obj;
-        return id.equals(user.getId()) &&
-               alias.equals(user.getAlias()) &&
-               name.equals(user.getName()) &&
-               email.equals(user.getEmail()) &&
-               passwdHash.equals(user.getPasswdHash());
+        return id.equals(user.id) &&
+               alias.equals(user.alias) &&
+               name.equals(user.name) &&
+               email.equals(user.email) &&
+               passwdHash.equals(user.passwdHash);
     }
 
     @Override

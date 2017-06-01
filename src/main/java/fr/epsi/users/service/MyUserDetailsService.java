@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import fr.epsi.users.model.UserRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -16,7 +17,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import fr.epsi.users.dao.UserDao;
 import fr.epsi.users.model.User;
-import fr.epsi.users.model.UserRoles;
 
 @Service("userDetailsService")
 public class MyUserDetailsService implements UserDetailsService {
@@ -31,7 +31,7 @@ public class MyUserDetailsService implements UserDetailsService {
     @Transactional (readOnly=true)
     public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException {
         User user = userDao.getUserByAlias(username).get();
-        return buildUserForAuthentication(user, buildUserAuthority(user.getUserRole()));
+        return buildUserForAuthentication(user, buildUserAuthority(user.getUserRoles()));
     }
 
     /**
@@ -50,9 +50,9 @@ public class MyUserDetailsService implements UserDetailsService {
      * @param userRoles
      * @return List of granted authority
      */
-    private List<GrantedAuthority> buildUserAuthority(Set<UserRoles> userRoles) {
+    private List<GrantedAuthority> buildUserAuthority(Set<UserRole> userRoles) {
         Set<GrantedAuthority> setAuths = new HashSet<GrantedAuthority>();
-        for (UserRoles userRole : userRoles)
+        for (UserRole userRole : userRoles)
             setAuths.add(new SimpleGrantedAuthority(userRole.getRole().toString()));
         return new ArrayList<GrantedAuthority>(setAuths);
     }
