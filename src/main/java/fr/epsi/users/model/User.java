@@ -6,7 +6,6 @@ import java.util.Set;
 
 import javax.persistence.*;
 
-import org.hibernate.validator.constraints.Length;
 import org.mindrot.jbcrypt.BCrypt;
 
 /**
@@ -33,7 +32,6 @@ public class User implements Serializable {
     private String email;
 
     @Column(name="passwdHash", nullable = false)
-    @Length(min=59,max=60)
     private String passwdHash;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
