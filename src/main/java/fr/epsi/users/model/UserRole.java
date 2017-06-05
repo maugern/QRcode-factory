@@ -22,6 +22,9 @@ public class UserRole implements Serializable {
     @Column(name = "role")
     private Role role;
 
+    /** Default constructor */
+    public UserRole() {}
+
     /**
      * UserRoles Constructor
      * @param user user affected by the role

@@ -30,14 +30,14 @@ public class MainController {
         model.setViewName("hello");
         return model;
     }
-    
+
     @RequestMapping(value = "/admin**", method = RequestMethod.GET)
     public ModelAndView adminPage() {
-      ModelAndView model = new ModelAndView();
-      model.addObject("title", "Spring Security Login Form - Database Authentication");
-      model.addObject("message", "This page is for ROLE_ADMIN only!");
-      model.setViewName("admin");
-      return model;
+        ModelAndView model = new ModelAndView();
+        model.addObject("title", "Spring Security Login Form - Database Authentication");
+        model.addObject("message", "This page is for ROLE_ADMIN only!");
+        model.setViewName("admin");
+        return model;
     }
 
 
@@ -45,6 +45,7 @@ public class MainController {
     public ModelAndView login(@RequestParam(value = "error", required = false) String error,
                               @RequestParam(value = "logout", required = false) String logout,
                               HttpServletRequest request) {
+
 
         ModelAndView model = new ModelAndView();
         if (error != null) {
@@ -65,7 +66,7 @@ public class MainController {
     }
 
     @RequestMapping(value = "/403", method = RequestMethod.GET)
-    public ModelAndView accesssForbidden() {
+    public ModelAndView accesssDenied() {
 
         ModelAndView model = new ModelAndView();
 
