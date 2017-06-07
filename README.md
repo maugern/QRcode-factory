@@ -28,7 +28,7 @@ Lancez ensuite l'application en locale :
 mvn tomcat7:run
 ```
 
-C'est fini! Vous pouvez à présent vous rendre sur l'adresse ```http://localhost:8080``` pour voir le résultat.
+C'est fini! Vous pouvez à présent vous rendre sur l'adresse ```http://localhost:8080/QRcode-Factory``` pour voir le résultat.
 Si vous rencontrez une difficulté n'hésitez pas à [nous remonter le problème](https://github.com/maugern/QRcode-factory/issues).
 
 [travis]:https://travis-ci.org/maugern/QRcode-factory

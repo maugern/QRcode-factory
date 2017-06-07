@@ -7,18 +7,18 @@ import java.io.Serializable;
  * User roles
  */
 @Entity
-@Table(name = "user_role")
+@Table(name = "user_roles")
 public class UserRole implements Serializable {
     
     private static final long serialVersionUID = 6333055865276880516L;
 
     @Id
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "id", referencedColumnName = "id", nullable = false)
     private User user;
 
     @Id
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     @Column(name = "role")
     private Role role;
 

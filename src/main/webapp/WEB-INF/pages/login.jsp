@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page session="true"%>
 <html>
 <head>
@@ -13,7 +14,7 @@
 		<h3>Login with Username and Password</h3>
 
 		<c:if test="${not empty error}">
-			<div class="error">${error}</div>
+			<div class="error"><font color="red">${error}</font></div>
 		</c:if>
 		<c:if test="${not empty msg}">
 			<div class="msg">${msg}</div>

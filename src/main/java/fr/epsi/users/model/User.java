@@ -12,7 +12,7 @@ import org.mindrot.jbcrypt.BCrypt;
  * User class
  */
 @Entity
-@Table(name="user")
+@Table(name="users")
 public class User implements Serializable {
 
     private static final long serialVersionUID = 5316527283073594682L;
@@ -31,7 +31,7 @@ public class User implements Serializable {
     @Column(name="email", nullable = false, unique = true, length = 254)
     private String email;
 
-    @Column(name="passwdHash", nullable = false)
+    @Column(name="passwdhash", nullable = false)
     private String passwdHash;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)

@@ -1,10 +1,8 @@
 package fr.epsi.users.service;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
+import fr.epsi.users.model.UserDto;
 import fr.epsi.users.model.UserRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -35,13 +33,27 @@ public class MyUserDetailsService implements UserDetailsService {
     }
 
     /**
+     * Methode to make user persistent in database (when register or update personal information for exemple
+     * @param user User who will be save
+     * @return the saved user, empty if fail to save the user.
+     */
+    @Transactional
+    public Optional<User> registerNewAccount(User user) throws Exception {
+        if (userDao.getUserByAlias(user.getAlias()).isPresent())
+            throw new Exception("User with alias " + user.getAlias() + " already exists.");
+        if (userDao.getUserByEmail(user.getEmail()).isPresent())
+            throw new Exception("User with email " + user.getEmail() + " already exists.");
+        return userDao.saveUser(user);
+    }
+
+    /**
      * Method to convert fr.epsi.users.model.User to springframework.security.core.userdetails.User
      * User account is implicitly enabled and non expired
      * @param user
      * @param authorities
      * @return new userdetails.User with authority
      */
-    private org.springframework.security.core.userdetails.User buildUserForAuthentication(fr.epsi.users.model.User user, List<GrantedAuthority> authorities) {
+    private org.springframework.security.core.userdetails.User buildUserForAuthentication(final User user, List<GrantedAuthority> authorities) {
         return new org.springframework.security.core.userdetails.User(user.getAlias(), user.getPasswdHash(), true, true, true, true, authorities);
     }
 
