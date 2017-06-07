@@ -5,7 +5,10 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
+import org.hibernate.validator.constraints.Email;
 import org.mindrot.jbcrypt.BCrypt;
 
 /**
@@ -22,12 +25,16 @@ public class User implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotNull
+    @Size(max = 40)
     @Column(name="alias", nullable = false, unique = true, length = 40)
     private String alias;
     
+    @Size(max = 40)
     @Column(name="name", length = 40)
     private String name;
     
+    @Email
     @Column(name="email", nullable = false, unique = true, length = 254)
     private String email;
 

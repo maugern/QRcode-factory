@@ -3,6 +3,7 @@ package fr.epsi.users.service;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import fr.epsi.users.model.UserRole;
@@ -19,7 +20,7 @@ import fr.epsi.users.dao.UserDao;
 import fr.epsi.users.model.User;
 
 @Service("userDetailsService")
-public class MyUserDetailsService implements UserDetailsService {
+public class MyUserDetailsService implements UserDetailsService, UserService {
 
     @Autowired
     private UserDao userDao;
@@ -55,6 +56,30 @@ public class MyUserDetailsService implements UserDetailsService {
         for (UserRole userRole : userRoles)
             setAuths.add(new SimpleGrantedAuthority(userRole.getRole().toString()));
         return new ArrayList<GrantedAuthority>(setAuths);
+    }
+
+    /* (non-Javadoc)
+     * @see fr.epsi.users.service.UserService#save(fr.epsi.users.model.User)
+     */
+    @Override
+    public Optional<User> save(User user) {
+        return userDao.saveUser(user);
+    }
+
+    /* (non-Javadoc)
+     * @see fr.epsi.users.service.UserService#findByUsername(java.lang.String)
+     */
+    @Override
+    public Optional<User> findByUsername(String username) {
+        return userDao.getUserByAlias(username);
+    }
+
+    /* (non-Javadoc)
+     * @see fr.epsi.users.service.UserService#findByAlias(java.lang.String)
+     */
+    @Override
+    public Optional<User> findByAlias(String alias) {
+        return userDao.getUserByAlias(alias);
     }
 
 }
