@@ -16,14 +16,14 @@ public interface UserService {
     
     /**
      * Find User with username(=alias) in database.
-     * @param username
+     * @param username User username
      * @return Empty if username(=alias) not found
      */
     public Optional<User> findByUsername(String username);
 
     /**
      * Find User with alias in database.
-     * @param username
+     * @param alias User alias
      * @return Empty if alias not found
      */
     public Optional<User> findByAlias(String alias);

@@ -1,6 +1,7 @@
 fr.epsi.config
 fr.epsi.config.core
-fr.epsi.entity
+fr.epsi.entity.dao
+fr.epsi.entity.model
 fr.epsi.users.dao
 fr.epsi.users.model
 fr.epsi.users.service
