@@ -1,6 +1,8 @@
 package fr.epsi.users.model;
 
 import javax.persistence.*;
+import javax.validation.Valid;
+
 import java.io.Serializable;
 
 /**
@@ -12,6 +14,7 @@ public class UserRole implements Serializable {
     
     private static final long serialVersionUID = 6333055865276880516L;
 
+    @Valid
     @Id
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id", referencedColumnName = "id", nullable = false)

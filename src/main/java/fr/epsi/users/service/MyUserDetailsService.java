@@ -2,7 +2,6 @@ package fr.epsi.users.service;
 
 import java.util.*;
 
-import fr.epsi.users.model.UserDto;
 import fr.epsi.users.model.UserRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -17,7 +16,7 @@ import fr.epsi.users.dao.UserDao;
 import fr.epsi.users.model.User;
 
 @Service("userDetailsService")
-public class MyUserDetailsService implements UserDetailsService {
+public class MyUserDetailsService implements UserDetailsService, UserService {
 
     @Autowired
     private UserDao userDao;
@@ -41,8 +40,6 @@ public class MyUserDetailsService implements UserDetailsService {
     public Optional<User> registerNewAccount(User user) throws Exception {
         if (userDao.getUserByAlias(user.getAlias()).isPresent())
             throw new Exception("User with alias " + user.getAlias() + " already exists.");
-        if (userDao.getUserByEmail(user.getEmail()).isPresent())
-            throw new Exception("User with email " + user.getEmail() + " already exists.");
         return userDao.saveUser(user);
     }
 
@@ -67,6 +64,30 @@ public class MyUserDetailsService implements UserDetailsService {
         for (UserRole userRole : userRoles)
             setAuths.add(new SimpleGrantedAuthority(userRole.getRole().toString()));
         return new ArrayList<GrantedAuthority>(setAuths);
+    }
+
+    /* (non-Javadoc)
+     * @see fr.epsi.users.service.UserService#save(fr.epsi.users.model.User)
+     */
+    @Override
+    public Optional<User> save(User user) {
+        return userDao.saveUser(user);
+    }
+
+    /* (non-Javadoc)
+     * @see fr.epsi.users.service.UserService#findByUsername(java.lang.String)
+     */
+    @Override
+    public Optional<User> findByUsername(String username) {
+        return userDao.getUserByAlias(username);
+    }
+
+    /* (non-Javadoc)
+     * @see fr.epsi.users.service.UserService#findByAlias(java.lang.String)
+     */
+    @Override
+    public Optional<User> findByAlias(String alias) {
+        return userDao.getUserByAlias(alias);
     }
 
 }
