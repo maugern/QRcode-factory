@@ -1,6 +1,6 @@
-package fr.epsi.users.model;
+package fr.epsi.validator;
 
-import fr.epsi.users.validator.UserValidator;
+import fr.epsi.model.User;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.validation.BeanPropertyBindingResult;
@@ -15,8 +15,11 @@ public class UserValidatorTest {
     @Test
     @Ignore
     public void should_validate_correct_alias() {
-        User user = new User("foo", "foo", "foo@foo.com", "azerty123");
-        Errors errors = new BeanPropertyBindingResult(user, "");
+        User user = new User();
+        user.setUsername("Richard545");
+        user.setPassword("V3rYsTr0nGp4ssVVoRd");
+        user.setPasswordConfirm("V3rYsTr0nGp4ssVVoRd");
+        Errors errors = new BeanPropertyBindingResult(user, "user");
         validator.validate(user, errors);
 
         assertFalse(errors.hasErrors());

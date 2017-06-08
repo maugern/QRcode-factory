@@ -1,9 +1,4 @@
-package fr.epsi.entity;
-
-import static org.junit.Assert.*;
-
-import java.io.File;
-import java.io.IOException;
+package fr.epsi.model;
 
 import org.junit.After;
 import org.junit.Before;
@@ -11,7 +6,10 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
-import fr.epsi.entity.model.QrCode;
+import java.io.File;
+import java.io.IOException;
+
+import static org.junit.Assert.assertTrue;
 
 public class QrCodeTest {
 
