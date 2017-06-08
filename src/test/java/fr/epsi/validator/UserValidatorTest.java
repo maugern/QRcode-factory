@@ -3,6 +3,7 @@ package fr.epsi.validator;
 import fr.epsi.model.User;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.Errors;
 
@@ -10,7 +11,8 @@ import static org.junit.Assert.assertFalse;
 
 public class UserValidatorTest {
 
-    private UserValidator validator = new UserValidator();
+    @Autowired
+    private UserValidator validator;
 
     @Test
     @Ignore
