@@ -42,7 +42,7 @@ public class UserTest {
     public void should_set_user_role_by_default() {
         User user = new User("alias","name","email","password");
         assertTrue(user.getUserRoles().contains(new UserRole(user,Role.ROLE_USER)));
-        assertFalse(user.getUserRoles().contains(new UserRole(user,Role.ROLE_ADMIN)));
+        assertFalse(user.getUserRoles().contains(new UserRole(user, Role.ROLE_ADMIN)));
     }
 
     @Test

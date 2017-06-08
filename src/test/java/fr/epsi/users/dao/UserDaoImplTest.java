@@ -1,8 +1,5 @@
 package fr.epsi.users.dao;
 
-import fr.epsi.users.model.User;
-import fr.epsi.users.service.UserService;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

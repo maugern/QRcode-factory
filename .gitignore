@@ -37,3 +37,6 @@ local.properties
 # Intellij
 .idea/
 *.iml
+
+# Bdd secret file
+application.properties
