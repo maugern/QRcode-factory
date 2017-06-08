@@ -11,43 +11,28 @@ import org.hashids.Hashids;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.imageio.ImageIO;
 import javax.persistence.*;
-import javax.validation.constraints.Size;
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.Serializable;
 import java.security.SecureRandom;
 
-/**
- * Class used to generate QRcode
- */
 @Entity
 @Table(name = "qrcode")
-public class QrCode implements Serializable {
+public class QrCode {
 
     private static final Logger logger = LoggerFactory.getLogger(QrCode.class);
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "qrcode_id")
     private Long id;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id", referencedColumnName = "id", nullable = true)
     private User author;
-
-    @Size(max = 4000)
-    @Column(name = "url")
     private String url;
-
-    @Column(name = "hashid")
     private String hashid;
-
-    @Column(name = "salt")
     private String salt;
 
-       /** Default constructor */
+    /** Default constructor */
     public QrCode() {}
 
     /**
@@ -63,7 +48,7 @@ public class QrCode implements Serializable {
     /**
      * Create and save a QRcode in image format.
      * @param data The url you want to convert in QR code
-     * @param size in pixel, will be a square 
+     * @param size in pixel, will be a square
      * @param imageFormat I recommend to use "png"
      * @param fileName the name of generate image
      */
@@ -84,19 +69,25 @@ public class QrCode implements Serializable {
         }
     }
 
-    public BufferedImage getGeneratedImage() {
+    @Transient
+    public byte[] getGeneratedImage() {
         BitMatrix bitMatrix;
         BufferedImage bufferedImage = null;
-
+        ByteArrayOutputStream bao = new ByteArrayOutputStream();
         try {
             bitMatrix = new QRCodeWriter().encode(url,BarcodeFormat.QR_CODE,400,400);
             bufferedImage = MatrixToImageWriter.toBufferedImage(bitMatrix);
-        } catch (WriterException e1) {
-            logger.error("Fail to encode QRcode, maybe URL is in bad format",e1);
+            ImageIO.write(bufferedImage, "png", bao);
+        } catch (WriterException e) {
+            logger.error("Fail to encode QRcode, maybe URL is in bad format",e);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        return bufferedImage;
+        return bao.toByteArray();
     }
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long getId() {
         return id;
     }
@@ -105,6 +96,8 @@ public class QrCode implements Serializable {
         this.id = id;
     }
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "users_id", referencedColumnName = "id", nullable = true)
     public User getAuthor() {
         return author;
     }
@@ -132,9 +125,8 @@ public class QrCode implements Serializable {
     }
 
     public String getSalt() {
-        if (salt == null || salt.isEmpty()) {
+        if (salt == null || salt.isEmpty())
             generateSalt();
-        }
         return salt;
     }
 

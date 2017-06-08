@@ -1,25 +1,23 @@
 package fr.epsi.service;
 
-import fr.epsi.repository.QrCodeDao;
-import fr.epsi.entity.model.QrCode;
+import fr.epsi.model.QrCode;
+import fr.epsi.repository.QrCodeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
-@Service("qrCodeService")
+@Service
 public class QrCodeServiceImpl implements QrCodeService {
 
     @Autowired
-    private QrCodeDao qrCodeDao;
+    private QrCodeRepository qrCodeRepository;
 
     @Override
-    public Optional<QrCode> findByHash(final String hashid) {
-        return qrCodeDao.findByHash(hashid);
+    public QrCode save(QrCode qrcode) {
+        return qrCodeRepository.save(qrcode);
     }
 
     @Override
-    public QrCode save(QrCode qrCode) {
-        return qrCodeDao.save(qrCode);
+    public QrCode findByHashid(String hashid) {
+        return qrCodeRepository.findByHashid(hashid);
     }
 }

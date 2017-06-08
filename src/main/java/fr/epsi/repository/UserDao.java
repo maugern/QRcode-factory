@@ -3,8 +3,6 @@ package fr.epsi.repository;
 import java.util.List;
 import java.util.Optional;
 
-import fr.epsi.model.User;
-
 public interface UserDao {
 
     /**

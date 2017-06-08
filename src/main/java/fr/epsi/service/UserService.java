@@ -1,31 +1,9 @@
 package fr.epsi.service;
 
-import java.util.Optional;
-
 import fr.epsi.model.User;
 
 public interface UserService {
+    void save(User user);
 
-    /**
-     * Store or update user in database
-     * @param user User who will be store
-     * @return empty optional if cannot be store (maybe already exists),
-     * or optional containing the stored user. 
-     */
-    public Optional<User> save(User user);
-    
-    /**
-     * Find User with username(=alias) in database.
-     * @param username User username
-     * @return Empty if username(=alias) not found
-     */
-    public Optional<User> findByUsername(String username);
-
-    /**
-     * Find User with alias in database.
-     * @param alias User alias
-     * @return Empty if alias not found
-     */
-    public Optional<User> findByAlias(String alias);
-    
+    User findByUsername(String username);
 }

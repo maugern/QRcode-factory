@@ -1,7 +1,5 @@
 package fr.epsi.web;
 
-import fr.epsi.model.User;
-import fr.epsi.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

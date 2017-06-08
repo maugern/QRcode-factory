@@ -12,8 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import fr.epsi.model.User;
-
 @Component
 @Transactional
 public class UserDaoImpl implements UserDao {
