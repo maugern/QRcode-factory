@@ -1,7 +1,7 @@
-package fr.epsi.web.controller;
+package fr.epsi.web;
 
-import fr.epsi.users.model.User;
-import fr.epsi.users.service.UserService;
+import fr.epsi.model.User;
+import fr.epsi.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +34,7 @@ public class MainController {
     public ModelAndView defaultPage() {
         ModelAndView model = new ModelAndView();
         model.addObject("title", "Spring Security Login Form - Database Authentication");
-        model.addObject("message", "This is default page!");
+        model.addObject("message", "Please login to use the service!");
         model.setViewName("hello");
         return model;
     }

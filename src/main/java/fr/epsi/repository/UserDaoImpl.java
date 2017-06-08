@@ -1,4 +1,4 @@
-package fr.epsi.users.dao;
+package fr.epsi.repository;
 
 import java.util.List;
 import java.util.Optional;
@@ -12,7 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import fr.epsi.users.model.User;
+import fr.epsi.model.User;
 
 @Component
 @Transactional

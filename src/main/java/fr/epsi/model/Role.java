@@ -1,4 +1,4 @@
-package fr.epsi.users.model;
+package fr.epsi.model;
 
 /**
  * Role that can be attributed to User

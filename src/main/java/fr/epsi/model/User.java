@@ -1,4 +1,4 @@
-package fr.epsi.users.model;
+package fr.epsi.model;
 
 import java.io.Serializable;
 import java.util.HashSet;
@@ -20,9 +20,8 @@ public class User implements Serializable {
 
     private static final long serialVersionUID = 5316527283073594682L;
 
-    @Id
+    @Id @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="id", updatable = false, nullable = false)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotNull

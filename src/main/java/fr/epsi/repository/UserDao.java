@@ -1,9 +1,9 @@
-package fr.epsi.users.dao;
+package fr.epsi.repository;
 
 import java.util.List;
 import java.util.Optional;
 
-import fr.epsi.users.model.User;
+import fr.epsi.model.User;
 
 public interface UserDao {
 

@@ -1,8 +1,8 @@
-package fr.epsi.users.service;
+package fr.epsi.service;
 
 import java.util.Optional;
 
-import fr.epsi.users.model.User;
+import fr.epsi.model.User;
 
 public interface UserService {
 

@@ -22,7 +22,13 @@ import java.util.Properties;
 
 @EnableWebMvc
 @Configuration
-@ComponentScan({"fr.epsi.users.dao","fr.epsi.users.model","fr.epsi.users.service","fr.epsi.web.controller"})
+@ComponentScan({"fr.epsi.users.dao",
+                "fr.epsi.users.model",
+                "fr.epsi.users.service",
+                "fr.epsi.entity.dao",
+                "fr.epsi.entity.model",
+                "fr.epsi.entity.service",
+                "fr.epsi.web.controller"}) // TODO maybe no need to scan model
 @EnableTransactionManagement
 @Import({ SecurityConfig.class })
 public class AppConfig extends WebMvcConfigurerAdapter {

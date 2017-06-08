@@ -1,11 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <%@ page session="false"%>
 <!DOCTYPE html lang="en">
 <html>
 <head>
 <title>Register Page</title>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 </head>
 <body onload='document.registrationForm.username.focus();'>
 
@@ -52,21 +52,5 @@
 
 		</form>
 	</div>
-<script>
-
-function register(
-    $.ajax({
-    type:'POST',
-    url:'/register',
-    contentType:"application/json",
-    async:false,
-    cache:false,
-        data:{purpose:f_purpose, userName:f_userName,status: f_status,latAdd: f_latAdd, longAdd:f_lngAdd},
-    dataType:'json'
-
-    }).success(function(recordId){
-                console.log('Road Block created with id ' + recordId);
-    });
-</script>
 </body>
 </html>

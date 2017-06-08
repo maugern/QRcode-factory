@@ -1,8 +1,8 @@
-package fr.epsi.users.service;
+package fr.epsi.service;
 
 import java.util.*;
 
-import fr.epsi.users.model.UserRole;
+import fr.epsi.model.UserRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -12,8 +12,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import fr.epsi.users.dao.UserDao;
-import fr.epsi.users.model.User;
+import fr.epsi.repository.UserDao;
+import fr.epsi.model.User;
 
 @Service("userDetailsService")
 public class MyUserDetailsService implements UserDetailsService, UserService {
@@ -44,7 +44,7 @@ public class MyUserDetailsService implements UserDetailsService, UserService {
     }
 
     /**
-     * Method to convert fr.epsi.users.model.User to springframework.security.core.userdetails.User
+     * Method to convert fr.epsi.model.User to springframework.security.core.userdetails.User
      * User account is implicitly enabled and non expired
      * @param user
      * @param authorities
@@ -67,7 +67,7 @@ public class MyUserDetailsService implements UserDetailsService, UserService {
     }
 
     /* (non-Javadoc)
-     * @see fr.epsi.users.service.UserService#save(fr.epsi.users.model.User)
+     * @see fr.epsi.service.UserService#save(fr.epsi.model.User)
      */
     @Override
     public Optional<User> save(User user) {
@@ -75,7 +75,7 @@ public class MyUserDetailsService implements UserDetailsService, UserService {
     }
 
     /* (non-Javadoc)
-     * @see fr.epsi.users.service.UserService#findByUsername(java.lang.String)
+     * @see fr.epsi.service.UserService#findByUsername(java.lang.String)
      */
     @Override
     public Optional<User> findByUsername(String username) {
@@ -83,7 +83,7 @@ public class MyUserDetailsService implements UserDetailsService, UserService {
     }
 
     /* (non-Javadoc)
-     * @see fr.epsi.users.service.UserService#findByAlias(java.lang.String)
+     * @see fr.epsi.service.UserService#findByAlias(java.lang.String)
      */
     @Override
     public Optional<User> findByAlias(String alias) {

@@ -1,4 +1,4 @@
-package fr.epsi.users.model;
+package fr.epsi.model;
 
 import javax.persistence.*;
 import javax.validation.Valid;
