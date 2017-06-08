@@ -14,7 +14,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Log in with your account</title>
+    <title>Create a QR-code</title>
 
     <link href="${contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">
     <link href="${contextPath}/resources/css/common.css" rel="stylesheet">
@@ -30,23 +30,16 @@
 
 <div class="container">
 
-    <form method="POST" action="${contextPath}/login" class="form-signin">
-        <h2 class="form-heading">Log in</h2>
-
-        <div class="form-group ${error != null ? 'has-error' : ''}">
-            <span>${message}</span>
-            <input name="username" type="text" class="form-control" placeholder="Username"
-                   autofocus="true"/>
-            <input name="password" type="password" class="form-control" placeholder="Password"/>
-            <span>${error}</span>
-            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-
-            <button class="btn btn-lg btn-primary btn-block" type="submit">Log In</button>
-            <h4 class="text-center"><a href="${contextPath}/registration">Create an account</a></h4>
-        </div>
-
-    </form>
-
+    <form:form modelAttribute="qrCode" method="POST" action="${contextPath}/qrcode" class="form-signin">
+    <h2 class="form-heading">Create a QR-code</h2>
+        <div class="form-group">
+        <input type="hidden" field="*{id}"/>
+        <input type="hidden" field="*{author}"/>
+        <input id="url" type="text" field="*{url}" placeholder="URL" class="form-control" />
+        <input type="hidden" field="*{hashid}" />
+        <input type="submit" class="btn btn-lg btn-primary btn-block" value="Generate QR-code" />
+    </div>
+    </form:form>
 </div>
 <!-- /container -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>

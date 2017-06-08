@@ -1,18 +1,17 @@
 package fr.epsi.web;
 
-import fr.epsi.entity.model.QrCode;
-import fr.epsi.entity.service.QrCodeService;
+import fr.epsi.model.QrCode;
+import fr.epsi.service.QrCodeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
-import javax.imageio.ImageIO;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-
-@RestController
-@RequestMapping("/red")
+@Controller
 public class QrCodeController {
 
     private final Logger logger = LoggerFactory.getLogger(QrCodeController.class);
@@ -20,28 +19,23 @@ public class QrCodeController {
     @Autowired
     private QrCodeService qrCodeService;
 
-    @RequestMapping(value = "/{hashid}", method = RequestMethod.GET, produces = "image/jpg")
-    public @ResponseBody byte[] getFile(@PathVariable String hashid)  {
-        try {
-            QrCode qrCode = qrCodeService.findByHash(hashid).get();
+    @RequestMapping(value = "/qrcode", method = RequestMethod.GET)
+    public String qrcode(Model model, String error, String logout) {
+        if (error != null)
+            model.addAttribute("error", "Your username and password is invalid.");
 
-            // Create a byte array output stream.
-            ByteArrayOutputStream bao = new ByteArrayOutputStream();
+        if (logout != null)
+            model.addAttribute("message", "You have been logged out successfully.");
 
-            // Write to output stream
-            ImageIO.write(qrCode.getGeneratedImage(), "jpg", bao);
-
-            return bao.toByteArray();
-        } catch (IOException e) {
-            logger.error("Error during writing buffered image",e);
-            throw new RuntimeException(e);
-        }
+        return "qrcode";
     }
 
-    @RequestMapping(value = "/{url}", method = RequestMethod.PUT)
-    public @ResponseBody String putFile(@PathVariable String url) {
-        QrCode qrcode = qrCodeService.save(new QrCode(null, url));
-        return qrcode.getHashid();
+    @RequestMapping(value = "/qrcode", method = RequestMethod.POST)
+    public String addFile(@ModelAttribute("qrCode") QrCode qrCode, Model model) {
+        QrCode qrcode = qrCodeService.save(new QrCode(null, qrCode.getUrl()));
+        model.addAttribute("url", qrcode.getUrl());
+        model.addAttribute("image", qrcode.getGeneratedImage());
+        return "qrcodeShow";
     }
 
 }
