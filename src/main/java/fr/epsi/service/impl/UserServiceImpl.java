@@ -1,16 +1,15 @@
 package fr.epsi.service.impl;
 
-import fr.epsi.data.RoleDao;
-import fr.epsi.data.UserDao;
-import fr.epsi.model.User;
-import fr.epsi.repository.RoleRepository;
-import fr.epsi.repository.UserRepository;
-import fr.epsi.service.UserService;
+import java.util.HashSet;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
+import fr.epsi.data.RoleDao;
+import fr.epsi.data.UserDao;
+import fr.epsi.model.User;
+import fr.epsi.service.UserService;
 
 /** User Service implementation */
 @Service

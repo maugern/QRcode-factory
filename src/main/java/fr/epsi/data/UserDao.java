@@ -10,6 +10,7 @@ public interface UserDao {
     /**
      * Make user persistent in database
      * @param user the User to make persistent
+     * @return Optional User
      */
     Optional<User> save(User user);
 

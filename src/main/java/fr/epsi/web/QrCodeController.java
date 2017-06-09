@@ -1,10 +1,5 @@
 package fr.epsi.web;
 
-import fr.epsi.model.QrCode;
-import fr.epsi.service.QrCodeService;
-import fr.epsi.validator.QrCodeValidator;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,11 +8,13 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import fr.epsi.model.QrCode;
+import fr.epsi.service.QrCodeService;
+import fr.epsi.validator.QrCodeValidator;
+
 /** QRcode controller */
 @Controller
 public class QrCodeController {
-
-    private static final Logger logger = LoggerFactory.getLogger(QrCodeController.class);
 
     @Autowired
     private QrCodeService qrCodeService;

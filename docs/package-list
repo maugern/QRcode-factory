@@ -1,5 +1,8 @@
+fr.epsi.data
+fr.epsi.data.impl
 fr.epsi.model
 fr.epsi.repository
 fr.epsi.service
+fr.epsi.service.impl
 fr.epsi.validator
 fr.epsi.web
