@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class QrCodeController {
 
-    private final Logger logger = LoggerFactory.getLogger(QrCodeController.class);
+    private static final Logger logger = LoggerFactory.getLogger(QrCodeController.class);
 
     @Autowired
     private QrCodeService qrCodeService;

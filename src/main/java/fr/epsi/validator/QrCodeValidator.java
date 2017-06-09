@@ -2,8 +2,6 @@ package fr.epsi.validator;
 
 import fr.epsi.model.QrCode;
 import fr.epsi.model.User;
-import fr.epsi.service.QrCodeService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
@@ -11,9 +9,6 @@ import org.springframework.validation.Validator;
 
 @Component
 public class QrCodeValidator implements Validator {
-
-    @Autowired
-    private QrCodeService qrCodeService;
 
     @Override
     public boolean supports(Class<?> aClass) {
