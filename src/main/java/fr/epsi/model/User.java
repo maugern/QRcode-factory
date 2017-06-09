@@ -1,9 +1,9 @@
 package fr.epsi.model;
 
-
 import javax.persistence.*;
 import java.util.Set;
 
+/** User entity model */
 @Entity
 @Table(name = "users")
 public class User {

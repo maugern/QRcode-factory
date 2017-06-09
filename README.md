@@ -11,7 +11,7 @@ Liste des membres de l'équipe :
 - [MAUGER Nicolas](https://github.com/maugern)
 
 
-## Lancer l'application en locale :
+## Lancer l'application en local :
 
 Clonez d'abord le projet dans votre workspace :
 ```sh

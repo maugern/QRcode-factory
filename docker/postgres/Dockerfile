@@ -23,7 +23,7 @@ RUN mvn install
 
 # CONFIGURE POSTGRESQL =========================================================
 # Add scripts who will be executed before starting service
-COPY tools/*.sql /docker-entrypoint-initdb.d/
+COPY docker/*.sql /docker-entrypoint-initdb.d/
 
 # Add database epuration scipts and run it via cron
 ADD tools/crontab /etc/cron.d/database-cron
@@ -37,4 +37,4 @@ ADD src /srv/QRcode-factory/src/
 EXPOSE 8080
 
 # START THE WEB SERVER =========================================================
-CMD mvn tomcat7:run &
+CMD mvn jetty:run

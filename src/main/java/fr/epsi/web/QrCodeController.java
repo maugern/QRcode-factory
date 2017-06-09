@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+/** QRcode controller */
 @Controller
 public class QrCodeController {
 
@@ -24,6 +25,11 @@ public class QrCodeController {
     @Autowired
     private QrCodeValidator qrCodeValidator;
 
+    /**
+     * Get qrcode view
+     * @param model to send
+     * @return qrcode view
+     */
     @RequestMapping(value = "/qrcode", method = RequestMethod.GET)
     public String qrcode(Model model) {
         model.addAttribute("qrCodeForm", new QrCode());
@@ -31,6 +37,13 @@ public class QrCodeController {
         return "qrcode";
     }
 
+    /**
+     * Posting qrcodeForm
+     * @param qrCodeForm qrcode who will be compute
+     * @param bindingResult binding result from view
+     * @param model model to send
+     * @return redirection to qrCodeShow
+     */
     @RequestMapping(value = "/qrcode", method = RequestMethod.POST)
     public String qrcode(@ModelAttribute("qrCodeForm") QrCode qrCodeForm, BindingResult bindingResult, Model model) {
         qrCodeValidator.validate(qrCodeForm, bindingResult);

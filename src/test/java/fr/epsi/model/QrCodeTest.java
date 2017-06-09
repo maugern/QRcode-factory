@@ -25,15 +25,6 @@ public class QrCodeTest {
     }
 
     @Test
-    public void should_generate_and_save_qrcode() throws IOException {
-        QrCode.generateAndSave("https://www.april.org/", 400, "png", createdFolder.getAbsolutePath() + System.getProperty("file.separator") + "qrcode.png");
-        System.out.println("A test qrccode will be create in Testing file will be create in : ");
-        System.out.println(createdFolder.getAbsolutePath() + System.getProperty("file.separator") + "qrcode.png");
-        file_to_test = new File(createdFolder.getAbsolutePath() + System.getProperty("file.separator") + "qrcode.png");
-        assertTrue(file_to_test.exists());
-    }
-
-    @Test
     public void should_generate_correct_base64_image() {
         QrCode qrCode = new QrCode(null,"https://helloooo.com");
         qrCode.setId(123456L);

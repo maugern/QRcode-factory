@@ -1,5 +1,6 @@
-package fr.epsi.service;
+package fr.epsi.service.impl;
 
+import fr.epsi.service.SecurityService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
+/** Security service implementation */
 @Service
 public class SecurityServiceImpl implements SecurityService {
     @Autowired
@@ -20,6 +22,7 @@ public class SecurityServiceImpl implements SecurityService {
 
     private static final Logger logger = LoggerFactory.getLogger(SecurityServiceImpl.class);
 
+    /** {@inheritDoc} */
     @Override
     public String findLoggedInUsername() {
         Object userDetails = SecurityContextHolder.getContext().getAuthentication().getDetails();
@@ -30,8 +33,9 @@ public class SecurityServiceImpl implements SecurityService {
         return null;
     }
 
+    /** {@inheritDoc} */
     @Override
-    public void autologin(String username, String password) {
+    public void autologin(final String username, final String password) {
         UserDetails userDetails = userDetailsService.loadUserByUsername(username);
         UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(userDetails, password, userDetails.getAuthorities());
 

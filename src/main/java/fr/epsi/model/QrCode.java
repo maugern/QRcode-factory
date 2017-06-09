@@ -15,12 +15,11 @@ import javax.imageio.ImageIO;
 import javax.persistence.*;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.security.SecureRandom;
 import java.util.Base64;
 
+/** QrCode Entity model */
 @Entity
 @Table(name = "qrcode")
 public class QrCode {
@@ -44,30 +43,6 @@ public class QrCode {
     public QrCode(User author, String url) {
         this.author = author;
         this.url = url;
-    }
-
-    /**
-     * Create and save a QRcode in image format.
-     * @param data The url you want to convert in QR code
-     * @param size in pixel, will be a square
-     * @param imageFormat I recommend to use "png"
-     * @param fileName the name of generate image
-     */
-    public static void generateAndSave(String data, int size, String imageFormat, String fileName) {
-        BitMatrix bitMatrix;
-        FileOutputStream fileOutputStream;
-
-        try {
-            bitMatrix = new QRCodeWriter().encode(data, BarcodeFormat.QR_CODE, size, size);
-            fileOutputStream = new FileOutputStream(new File(fileName));
-            MatrixToImageWriter.writeToStream(bitMatrix, imageFormat, fileOutputStream);
-            fileOutputStream.close();
-        } catch (WriterException e) {
-            logger.error("Fail to encode QRcode",e);
-        } catch (IOException e) {
-            logger.error("Fail to write " + fileName + ", maybe path not found,"
-                    + " already file with the same name or you don't have permission.",e);
-        }
     }
 
     /**

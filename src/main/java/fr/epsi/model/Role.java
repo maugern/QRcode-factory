@@ -3,6 +3,7 @@ package fr.epsi.model;
 import javax.persistence.*;
 import java.util.Set;
 
+/** Role entity model */
 @Entity
 @Table(name = "role")
 public class Role {

@@ -1,5 +1,6 @@
-package fr.epsi.service;
+package fr.epsi.service.impl;
 
+import fr.epsi.data.UserDao;
 import fr.epsi.model.Role;
 import fr.epsi.model.User;
 import fr.epsi.repository.UserRepository;
@@ -9,19 +10,24 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
 import java.util.Set;
 
+/** UserDetails service implementation */
+@Service
 public class UserDetailsServiceImpl implements UserDetailsService {
-    @Autowired
-    private UserRepository userRepository;
 
+    @Autowired
+    private UserDao userDao;
+
+    /** {@inheritDoc} */
     @Override
     @Transactional(readOnly = true)
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByUsername(username);
+    public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException {
+        User user = userDao.findByUsername(username).get();
 
         Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
         for (Role role : user.getRoles()){
