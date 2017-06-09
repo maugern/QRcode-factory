@@ -25,6 +25,7 @@
 
 <body>
     <div class="container">
+    <h2 class="form-heading">Link to <a href="${url}">${url}</a></h2>
         <a href="${url}">
             <img class="img img-responsive" id="base64image" src="${image}" />
         </a>

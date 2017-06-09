@@ -30,7 +30,7 @@ CREATE TABLE user_role (
 --
 
 CREATE TABLE IF NOT EXISTS qrcode (
-    qrcode_id SERIAL PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     author INTEGER REFERENCES users(id) ON DELETE CASCADE ON UPDATE CASCADE,
     url VARCHAR(4000),
     hashid VARCHAR,

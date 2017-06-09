@@ -30,13 +30,15 @@
 
 <div class="container">
 
-    <form:form modelAttribute="qrCode" method="POST" action="${contextPath}/qrcode" class="form-signin">
+    <form:form modelAttribute="qrCodeForm" method="POST" class="form-signin">
     <h2 class="form-heading">Create a QR-code</h2>
         <div class="form-group">
-        <input type="hidden" field="*{id}"/>
-        <input type="hidden" field="*{author}"/>
-        <input id="url" type="text" field="*{url}" placeholder="URL" class="form-control" />
-        <input type="hidden" field="*{hashid}" />
+        <spring:bind path="url">
+        <div class="form-group ${status.error ? 'has-error' : ''}">
+            <form:input id="url" type="text" path="url" placeholder="URL" class="form-control" />
+            <form:errors path="url"></form:errors>
+        </div>
+        </spring:bind>
         <input type="submit" class="btn btn-lg btn-primary btn-block" value="Generate QR-code" />
     </div>
     </form:form>

@@ -2,11 +2,13 @@ package fr.epsi.web;
 
 import fr.epsi.model.QrCode;
 import fr.epsi.service.QrCodeService;
+import fr.epsi.validator.QrCodeValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -19,22 +21,27 @@ public class QrCodeController {
     @Autowired
     private QrCodeService qrCodeService;
 
-    @RequestMapping(value = "/qrcode", method = RequestMethod.GET)
-    public String qrcode(Model model, String error, String logout) {
-        if (error != null)
-            model.addAttribute("error", "Your username and password is invalid.");
+    @Autowired
+    private QrCodeValidator qrCodeValidator;
 
-        if (logout != null)
-            model.addAttribute("message", "You have been logged out successfully.");
+    @RequestMapping(value = "/qrcode", method = RequestMethod.GET)
+    public String qrcode(Model model) {
+        model.addAttribute("qrCodeForm", new QrCode());
 
         return "qrcode";
     }
 
     @RequestMapping(value = "/qrcode", method = RequestMethod.POST)
-    public String addFile(@ModelAttribute("qrCode") QrCode qrCode, Model model) {
-        QrCode qrcode = qrCodeService.save(new QrCode(null, qrCode.getUrl()));
-        model.addAttribute("url", qrcode.getUrl());
-        model.addAttribute("image", qrcode.getGeneratedImage());
+    public String qrcode(@ModelAttribute("qrCodeForm") QrCode qrCodeForm, BindingResult bindingResult, Model model) {
+        qrCodeValidator.validate(qrCodeForm, bindingResult);
+
+        if (bindingResult.hasErrors()) {
+            return "qrcode";
+        }
+
+        qrCodeForm = qrCodeService.save(new QrCode(null, qrCodeForm.getUrl()));
+        model.addAttribute("url", qrCodeForm.getUrl());
+        model.addAttribute("image", "data:image/png;base64," + qrCodeForm.getGeneratedImage());
         return "qrcodeShow";
     }
 

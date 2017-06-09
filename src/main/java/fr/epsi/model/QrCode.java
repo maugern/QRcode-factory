@@ -19,6 +19,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.security.SecureRandom;
+import java.util.Base64;
 
 @Entity
 @Table(name = "qrcode")
@@ -69,8 +70,12 @@ public class QrCode {
         }
     }
 
+    /**
+     * Generate image in base64
+     * @return
+     */
     @Transient
-    public byte[] getGeneratedImage() {
+    public String getGeneratedImage() {
         BitMatrix bitMatrix;
         BufferedImage bufferedImage = null;
         ByteArrayOutputStream bao = new ByteArrayOutputStream();
@@ -83,7 +88,7 @@ public class QrCode {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return bao.toByteArray();
+        return Base64.getEncoder().encodeToString(bao.toByteArray());
     }
 
     @Id
@@ -93,11 +98,13 @@ public class QrCode {
     }
 
     public void setId(Long id) {
+        if(this.id == null)
+            genarateHashid();
         this.id = id;
     }
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "users_id", referencedColumnName = "id", nullable = true)
+    @JoinColumn(name = "author", referencedColumnName = "id", nullable = true)
     public User getAuthor() {
         return author;
     }
@@ -138,8 +145,13 @@ public class QrCode {
      * Generate Hashid with qrcode id's and generated salt
      */
     private void genarateHashid() {
-        Hashids hashid = new Hashids(getSalt());
-        this.hashid = hashid.encode(id);
+        if(id != null) {
+            Hashids h = new Hashids(getSalt());
+            this.hashid = h.encode(id);
+        } else {
+            Hashids h = new Hashids(getSalt());
+            this.hashid = h.encode(37L);
+        }
     }
 
     private void generateSalt() {

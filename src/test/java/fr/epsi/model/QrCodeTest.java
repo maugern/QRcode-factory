@@ -8,7 +8,10 @@ import org.junit.rules.TemporaryFolder;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Base64;
 
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 public class QrCodeTest {
@@ -30,6 +33,20 @@ public class QrCodeTest {
         System.out.println(createdFolder.getAbsolutePath() + System.getProperty("file.separator") + "qrcode.png");
         file_to_test = new File(createdFolder.getAbsolutePath() + System.getProperty("file.separator") + "qrcode.png");
         assertTrue(file_to_test.exists());
+    }
+
+    @Test
+    public void should_generate_correct_base64_image() {
+        QrCode qrCode = new QrCode(null,"https://helloooo.com");
+        qrCode.setId(123456L);
+        assertTrue(qrCode.getGeneratedImage().matches("iVBOR.*Jggg=="));
+    }
+
+    @Test
+    public void should_correct_hashid_when_id_is_ok() {
+        QrCode qrCode = new QrCode(null,"https://helloooo.com");
+        qrCode.setId(123456L);
+        assertNotNull(qrCode.getHashid());
     }
 
     @After
