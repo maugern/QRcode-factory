@@ -31,10 +31,10 @@ Si vous rencontrez une difficulté n'hésitez pas à [nous remonter le problème
 
 ## Contribution
 Si vous souhaitez contribuez à ce projet:
-    - Si vous utilisez eclipse/intellij/netbeans/visualCode: vous pouvez le déinstaller
-    - Téléchargez et ulilisez un vrai IDE (par exemple [![][spacemacs img]][spacemacs] )
-    - Executez **dans un vrais terminal** la commande ```mvn clean install package```
-    - Bravo! Vous avez compilé le projet, vous pouvez maintenant contribuer à un projet libre ! Cela fait de vous quelqu'un de formidable !
+- Si vous utilisez eclipse/intellij/netbeans/visualCode: vous pouvez le déinstaller
+- Téléchargez et ulilisez un vrai IDE (par exemple [![][spacemacs img]][spacemacs] )
+- Executez **dans un vrais terminal** la commande ```mvn clean install package```
+- Bravo! Vous avez compilé le projet, vous pouvez maintenant contribuer à un projet libre ! Cela fait de vous quelqu'un de formidable !
 
 ## Licence
 Le projet est distribué sous licence libre [MIT license](https://opensource.org/licenses/MIT)

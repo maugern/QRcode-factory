@@ -11,5 +11,5 @@ public interface QrCodeRepository extends JpaRepository<QrCode, Long>{
      * @param hashid User's hashid
      * @return QrCode with corresponding hash
      */
-    QrCode findByHashid(String hashid);
+    QrCode findByHashid(final String hashid);
 }
