@@ -72,7 +72,7 @@ public class QrCode {
 
     /**
      * Generate image in base64
-     * @return
+     * @return String who representing Qrcode in base64
      */
     @Transient
     public String getGeneratedImage() {
