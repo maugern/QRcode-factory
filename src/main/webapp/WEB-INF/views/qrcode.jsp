@@ -30,6 +30,7 @@
 
 <div class="container">
 
+    <c:if test="${pageContext.request.userPrincipal.name != null}">
     <form:form modelAttribute="qrCodeForm" method="POST" class="form-signin">
     <h2 class="form-heading">Create a QR-code</h2>
         <div class="form-group">
@@ -42,6 +43,10 @@
         <input type="submit" class="btn btn-lg btn-primary btn-block" value="Generate QR-code" />
     </div>
     </form:form>
+    </c:if>
+    <c:if test="${pageContext.request.userPrincipal.name == null}">
+        <h2>Please <a href="${contextPath}/login">log in</a> if you want to use this service</h2>
+    </c:if>
 </div>
 <!-- /container -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>

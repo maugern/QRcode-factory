@@ -32,6 +32,7 @@
         </form>
 
         <h2>Welcome ${pageContext.request.userPrincipal.name} | <a onclick="document.forms['logoutForm'].submit()">Logout</a></h2>
+        <h3><a href="${contextPath}/qrcode"> I want to create a qrcode</a></h3>
 
     </c:if>
 
