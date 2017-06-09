@@ -1,5 +1,0 @@
-#!/bin/sh
-
-# h d m y commande
-# Launch it at midnight every day
-0 0 * * * PGPASSWORD=docker psql -h localhost -p 5432 -d docker -U docker < srv/QRCcode-factory/tools/database_purge.sql >> /var/log/cron.log 2>&1
