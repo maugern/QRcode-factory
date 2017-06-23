@@ -61,7 +61,7 @@ public class QrCode {
         } catch (WriterException e) {
             logger.error("Fail to encode QRcode, maybe URL is in bad format",e);
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error("Fail to write bitmatrix in buffer",e);
         }
         return Base64.getEncoder().encodeToString(bao.toByteArray());
     }
