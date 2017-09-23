@@ -8,12 +8,12 @@
 	http://www.springframework.org/schema/context
 	http://www.springframework.org/schema/context/spring-context-4.0.xsd">
 
-    <context:component-scan base-package="fr.epsi"/>
+    <context:component-scan base-package="fr.maugern"/>
 
     <bean id="entityManagerFactoryBean" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
         <property name="dataSource" ref="dataSource" />
 
-        <property name="packagesToScan" value="fr.epsi" />
+        <property name="packagesToScan" value="fr.maugern" />
 
         <property name="jpaVendorAdapter">
             <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" />

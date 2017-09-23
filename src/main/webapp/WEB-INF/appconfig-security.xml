@@ -20,7 +20,7 @@
         </authentication-provider>
     </authentication-manager>
 
-    <beans:bean id="userDetailsServiceImpl" class="fr.epsi.service.impl.UserDetailsServiceImpl"></beans:bean>
+    <beans:bean id="userDetailsServiceImpl" class="fr.maugern.service.impl.UserDetailsServiceImpl"></beans:bean>
 
     <beans:bean id="encoder"
           class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">
