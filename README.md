@@ -1,4 +1,4 @@
-QRcode-Factory
+﻿QRcode-Factory
 ==============
 
 **Short link generator distributed by QRcode**
