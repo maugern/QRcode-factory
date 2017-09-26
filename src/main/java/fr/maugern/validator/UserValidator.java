@@ -27,7 +27,8 @@ public class UserValidator implements Validator {
         User user = (User) o;
 
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "username", "NotEmpty");
-        if (user.getUsername().length() < 6 || user.getUsername().length() > 32) {
+        if (user.getUsername().length() < ValidationConstants.MIN_USERNAME_LENGHT ||
+                user.getUsername().length() > ValidationConstants.MAX_USERNAME_LENGHT) {
             errors.rejectValue("username", "Size.userForm.username");
         }
         if (userService.findByUsername(user.getUsername()).isPresent()) {
@@ -35,7 +36,8 @@ public class UserValidator implements Validator {
         }
 
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "NotEmpty");
-        if (user.getPassword().length() < 8 || user.getPassword().length() > 32) {
+        if (user.getPassword().length() < ValidationConstants.MIN_PASSWORD_LENGHT ||
+                user.getPassword().length() > ValidationConstants.MAX_PASSWORD_LENGHT) {
             errors.rejectValue("password", "Size.userForm.password");
         }
 

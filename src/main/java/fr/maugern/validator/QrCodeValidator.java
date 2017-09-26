@@ -21,14 +21,12 @@ public class QrCodeValidator implements Validator {
     public void validate(final Object o, Errors errors) {
         QrCode qrcode = (QrCode) o;
 
-        String uriRegex = "^(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]";
-
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "url", "NotEmpty");
-        if (!qrcode.getUrl().matches(uriRegex)) {
+        if (!qrcode.getUrl().matches(ValidationConstants.REGEX_URI)) {
             errors.rejectValue("url", "Form.qrcodeForm.url");
         }
 
-        if (qrcode.getUrl().length() > 4000) {
+        if (qrcode.getUrl().length() > ValidationConstants.MAX_URL_LENGTH) {
             errors.rejectValue("url", "Size.qrcodeForm.url");
         }
     }

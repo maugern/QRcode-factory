@@ -1,23 +1,30 @@
 package fr.maugern.model;
 
-import com.google.common.hash.Hasher;
-import com.google.common.hash.Hashing;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.util.Base64;
+
+import javax.imageio.ImageIO;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import org.hashids.Hashids;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
-import org.hashids.Hashids;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import javax.imageio.ImageIO;
-import javax.persistence.*;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.security.SecureRandom;
-import java.util.Base64;
 
 /** QrCode Entity model */
 @Entity
@@ -25,12 +32,11 @@ import java.util.Base64;
 public class QrCode {
 
     private static final Logger logger = LoggerFactory.getLogger(QrCode.class);
+    private static final String SALT = "J'apprécie les fruits au sirop";
 
     private Long id;
     private User author;
     private String url;
-    private String hashid;
-    private String salt;
 
     /** Default constructor */
     public QrCode() {}
@@ -73,8 +79,6 @@ public class QrCode {
     }
 
     public void setId(Long id) {
-        if(this.id == null)
-            genarateHashid();
         this.id = id;
     }
 
@@ -96,44 +100,16 @@ public class QrCode {
         this.url = url;
     }
 
-    public String getHashid() {
-        if (hashid == null || hashid.isEmpty())
-            genarateHashid();
-        return hashid;
+    @Transient
+    public static String getHashidFromId(Long id) {
+        Hashids hashids = new Hashids(SALT);
+        return hashids.encode(id);
     }
 
-    public void setHashid(String hashid) {
-        this.hashid = hashid;
-    }
-
-    public String getSalt() {
-        if (salt == null || salt.isEmpty())
-            generateSalt();
-        return salt;
-    }
-
-    public void setSalt(String salt) {
-        this.salt = salt;
-    }
-
-    /**
-     * Generate Hashid with qrcode id's and generated salt
-     */
-    private void genarateHashid() {
-        if(id != null) {
-            Hashids h = new Hashids(getSalt());
-            this.hashid = h.encode(id);
-        } else {
-            Hashids h = new Hashids(getSalt());
-            this.hashid = h.encode(37L);
-        }
-    }
-
-    private void generateSalt() {
-        SecureRandom random = new SecureRandom();
-        Hasher hasher = Hashing.sha256().newHasher();
-        hasher.putLong(random.nextLong());
-        this.salt = hasher.hash().toString();
+    @Transient
+    public static Long getIdFromHashid(String hashid) {
+        Hashids hashids = new Hashids(SALT);
+        return hashids.decode(hashid)[0];
     }
 
 }

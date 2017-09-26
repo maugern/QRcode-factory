@@ -15,9 +15,9 @@ public interface QrCodeDao {
     Optional<QrCode> save(QrCode qrCode);
 
     /**
-     * Find qrCode by hashid
-     * @param hashid User's hashid
+     * Find qrCode by id
+     * @param hashid User's id
      * @return an optional qrCode
      */
-    Optional<QrCode> findByHashid(String hashid);
+    Optional<QrCode> findById(Long hashid);
 }

@@ -16,7 +16,7 @@ public class QrCodeTest {
 
     @Rule 
     public TemporaryFolder folder= new TemporaryFolder();
-       
+
     @Before
     public void init_temporary_folder() throws  IOException {
         File createdFolder = folder.newFolder("junit_qrcode");
@@ -32,9 +32,7 @@ public class QrCodeTest {
 
     @Test
     public void should_correct_hashid_when_id_is_ok() {
-        QrCode qrCode = new QrCode(null,"https://helloooo.com");
-        qrCode.setId(123456L);
-        assertNotNull(qrCode.getHashid());
+        assertNotNull(QrCode.getIdFromHashid(QrCode.getHashidFromId(123456L)));
     }
 
     @After
