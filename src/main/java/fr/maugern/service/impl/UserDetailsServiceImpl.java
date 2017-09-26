@@ -1,6 +1,7 @@
 package fr.maugern.service.impl;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,14 +27,17 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     /** {@inheritDoc} */
     @Override
     @Transactional(readOnly = true)
-    public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException {
-        User user = userDao.findByUsername(username).get();
+    public UserDetails loadUserByUsername(final String username) {
+        Optional<User> user = userDao.findByUsername(username);
+        if (!user.isPresent())
+            throw new UsernameNotFoundException("User with username " + username + " not found");
 
         Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
-        for (Role role : user.getRoles()){
+        for (Role role : user.get().getRoles()){
             grantedAuthorities.add(new SimpleGrantedAuthority(role.getName()));
         }
 
-        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), grantedAuthorities);
+        return new org.springframework.security.core.userdetails.User(user.get().getUsername(), user.get().getPassword(), grantedAuthorities);
     }
+
 }
