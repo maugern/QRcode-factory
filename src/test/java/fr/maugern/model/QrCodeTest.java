@@ -1,6 +1,6 @@
 package fr.maugern.model;
 
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
@@ -34,7 +34,9 @@ public class QrCodeTest {
     public void should_correct_hashid_when_id_is_ok() {
         QrCode qrCode = new QrCode(null,"https://helloooo.com");
         qrCode.setId(123456L);
-        assertNotNull(qrCode.getHashid());
+        String hashid = qrCode.getHashid();
+        System.out.println(hashid);
+        assertEquals(QrCode.getIdFromHashid(hashid), new Long(123456L));
     }
 
     @After

@@ -3,6 +3,9 @@ package fr.maugern.service.impl;
 import fr.maugern.data.QrCodeDao;
 import fr.maugern.model.QrCode;
 import fr.maugern.service.QrCodeService;
+
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,8 +24,8 @@ public class QrCodeServiceImpl implements QrCodeService {
 
     /** {@inheritDoc} */
     @Override
-    public QrCode findByHashid(final String hashid) {
-        return qrCodeDao.findByHashid(hashid).get();
+    public Optional<QrCode> findById(final Long id) {
+        return qrCodeDao.findById(id);
     }
 
 }

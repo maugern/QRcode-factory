@@ -52,6 +52,7 @@ public class QrCodeController {
         qrCodeForm = qrCodeService.save(new QrCode(null, qrCodeForm.getUrl()));
         model.addAttribute("url", qrCodeForm.getUrl());
         model.addAttribute("image", "data:image/png;base64," + qrCodeForm.getGeneratedImage());
+        model.addAttribute("hashid", qrCodeForm.getHashid());
         return "qrcodeShow";
     }
 

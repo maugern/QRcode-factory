@@ -1,5 +1,7 @@
 package fr.maugern.service;
 
+import java.util.Optional;
+
 import fr.maugern.model.QrCode;
 
 /** QRcode service */
@@ -14,8 +16,8 @@ public interface QrCodeService {
 
     /**
      * Find the QRcode
-     * @param hashid QrCode's hashid
+     * @param hashid QrCode's Id
      * @return QRcode found
      */
-    QrCode findByHashid(String hashid);
+    Optional<QrCode> findById(Long id);
 }

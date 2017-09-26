@@ -23,7 +23,8 @@ public class QrCodeDaoImpl implements QrCodeDao {
 
     /** {@inheritDoc} */
     @Override
-    public Optional<QrCode> findByHashid(final String hashid) {
-        return Optional.ofNullable(qrCodeRepository.findByHashid(hashid));
+    public Optional<QrCode> findById(Long id) {
+        return Optional.of(qrCodeRepository.findOne(id));
     }
+
 }
