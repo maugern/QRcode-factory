@@ -1,6 +1,8 @@
 ﻿QRcode-Factory
 ==============
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/e9829ad6908d47b3a0d9acb290c18dad)](https://www.codacy.com/app/contact_74/QRcode-factory?utm_source=github.com&utm_medium=referral&utm_content=maugern/QRcode-factory&utm_campaign=badger)
+
 **Short link generator distributed by QRcode**
 
 [![][travis img]][travis] [![][circleci img]][circleci] [![][vulnerabilities img]][vulnerabilities] [![][code-climate img]][code-climate] [![][codecov img]][codecov] [![][license img]][license]
