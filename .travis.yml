@@ -4,7 +4,9 @@ jdk:
 sudo: false
 
 install: mvn install -DskipTests=false
-script: mvn cobertura:cobertura
+script:
+- mvn cobertura:cobertura
+- mvn sonar:sonar -Dsonar.organization=maugern-github -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_LOGIN
 
 after_success:
 - bash <(curl -s https://codecov.io/bash)
