@@ -46,10 +46,8 @@
 		<hibernate.version>4.3.11.Final</hibernate.version>
 		<hibernate-validator.version>5.2.1.Final</hibernate-validator.version>
 
-		<jstl.version>1.2</jstl.version>
 		<javax-el.version>2.2.4</javax-el.version>
 		<jsp-api.version>2.0</jsp-api.version>
-		<jsp-servlet.version>3.0.1</jsp-servlet.version>
 
 		<commons-dbcp.version>1.4</commons-dbcp.version>
 		<logback.version>1.2.3</logback.version>
@@ -136,22 +134,9 @@
 
 		<dependency>
 			<groupId>javax.servlet</groupId>
-			<artifactId>jstl</artifactId>
-			<version>${jstl.version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>javax.servlet</groupId>
 			<artifactId>jsp-api</artifactId>
 			<version>${jsp-api.version}</version>
 			<scope>provided</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>javax.servlet-api</artifactId>
-			<version>${jsp-servlet.version}</version>
-			<scope>test</scope>
 		</dependency>
 
 		<dependency>
