@@ -1,2 +1,4 @@
+# Exclude javadoc
 exclude_paths:
 - "docs/"
+- "docs/**"

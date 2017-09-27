@@ -1,5 +1,7 @@
 package fr.maugern.web;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -49,10 +51,14 @@ public class QrCodeController {
             return "qrcode";
         }
 
-        qrCodeForm = qrCodeService.save(new QrCode(null, qrCodeForm.getUrl()));
-        model.addAttribute("url", qrCodeForm.getUrl());
-        model.addAttribute("image", "data:image/png;base64," + qrCodeForm.getGeneratedImage());
-        return "qrcodeShow";
+        Optional<QrCode> optQrCodeForm = qrCodeService.save(new QrCode(null, qrCodeForm.getUrl()));
+        if (optQrCodeForm.isPresent()) {
+            model.addAttribute("url", qrCodeForm.getUrl());
+            model.addAttribute("image", "data:image/png;base64," + qrCodeForm.getGeneratedImage());
+            return "qrcodeShow";
+        } else {
+            return "500";
+        }
     }
 
 }

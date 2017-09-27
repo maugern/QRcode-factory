@@ -12,7 +12,7 @@ public interface QrCodeService {
      * @param qrcode QrCode to save
      * @return saved QRcode
      */
-    QrCode save(QrCode qrcode);
+    Optional<QrCode> save(QrCode qrcode);
 
     /**
      * @param idFromHashid

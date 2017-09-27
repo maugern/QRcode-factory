@@ -18,8 +18,8 @@ public class QrCodeServiceImpl implements QrCodeService {
 
     /** {@inheritDoc} */
     @Override
-    public QrCode save(final QrCode qrcode) {
-        return qrCodeDao.save(qrcode).get();
+    public Optional<QrCode> save(final QrCode qrcode) {
+        return qrCodeDao.save(qrcode);
     }
 
     /** {@inheritDoc} */

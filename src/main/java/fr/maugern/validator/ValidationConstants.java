@@ -8,6 +8,8 @@ package fr.maugern.validator;
 /** Validation values used in application's from */
 public class ValidationConstants {
 
+    private ValidationConstants(){}
+
     protected static final int MIN_PASSWORD_LENGHT = 8;
     protected static final int MAX_PASSWORD_LENGHT = 32;
     
