@@ -3,7 +3,7 @@
 
 **Short link generator distributed by QRcode**
 
-[![][travis img]][travis] [![][circleci img]][circleci] [![][vulnerabilities img]][vulnerabilities] [![][code-climate img]][code-climate] [![][codecov img]][codecov] [![][license img]][license]
+[![][travis img]][travis] [![][circleci img]][circleci] [![][vulnerabilities img]][vulnerabilities] [![][code-climate img]][code-climate] [![][codecov img]][codecov] [![][codacy img]][codacy] [![][license img]][license]
 
 ## Contribute
 ### Prerequisite
@@ -51,3 +51,5 @@ This project is distribute under [MIT license](https://opensource.org/licenses/M
 [codecov img]:https://codecov.io/gh/maugern/QRcode-factory/branch/master/graph/badge.svg
 [circleci]:https://circleci.com/gh/maugern/QRcode-factory
 [circleci img]:https://circleci.com/gh/maugern/QRcode-factory.svg?style=shield&circle-token=:circle-token
+[codacy]:https://www.codacy.com/app/contact_74/QRcode-factory?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=maugern/QRcode-factory&amp;utm_campaign=Badge_Grade
+[codacy img]:https://api.codacy.com/project/badge/Grade/e9829ad6908d47b3a0d9acb290c18dad

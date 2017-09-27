@@ -1,3 +1,18 @@
+engines:
+    duplication:
+        enabled: true
+        config:
+            languages:
+                - java
+    pmd:
+        enabled: true
+        channel: beta
+
+ratings:
+    paths:
+    # Check only production files
+    - 'src/main/java/**'
+
 # Exclude javadoc
 exclude_paths:
 - "docs/"
