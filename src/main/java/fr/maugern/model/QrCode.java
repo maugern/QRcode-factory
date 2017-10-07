@@ -1,8 +1,8 @@
 package fr.maugern.model;
 
-import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.Base64;
 
 import javax.imageio.ImageIO;
@@ -29,8 +29,9 @@ import com.google.zxing.qrcode.QRCodeWriter;
 /** QrCode Entity model */
 @Entity
 @Table(name = "qrcode")
-public class QrCode {
+public class QrCode implements Serializable {
 
+    private static final long serialVersionUID = 5081802627736375101L;
     private static final Logger logger = LoggerFactory.getLogger(QrCode.class);
     private static final String SALT = "J'apprécie les fruits au sirop";
 
@@ -57,13 +58,10 @@ public class QrCode {
      */
     @Transient
     public String getGeneratedImage() {
-        BitMatrix bitMatrix;
-        BufferedImage bufferedImage = null;
         ByteArrayOutputStream bao = new ByteArrayOutputStream();
         try {
-            bitMatrix = new QRCodeWriter().encode(url,BarcodeFormat.QR_CODE,400,400);
-            bufferedImage = MatrixToImageWriter.toBufferedImage(bitMatrix);
-            ImageIO.write(bufferedImage, "png", bao);
+            BitMatrix bitMatrix = new QRCodeWriter().encode(url,BarcodeFormat.QR_CODE,400,400);
+            ImageIO.write(MatrixToImageWriter.toBufferedImage(bitMatrix), "png", bao);
         } catch (WriterException e) {
             logger.error("Fail to encode QRcode, maybe URL is in bad format",e);
         } catch (IOException e) {
@@ -110,6 +108,49 @@ public class QrCode {
     public static Long getIdFromHashid(String hashid) {
         Hashids hashids = new Hashids(SALT);
         return hashids.decode(hashid)[0];
+    }
+
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((author == null) ? 0 : author.hashCode());
+        result = prime * result + ((id == null) ? 0 : id.hashCode());
+        result = prime * result + ((url == null) ? 0 : url.hashCode());
+        return result;
+    }
+
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        QrCode other = (QrCode) obj;
+        if (author == null) {
+            if (other.author != null)
+                return false;
+        } else if (!author.equals(other.author))
+            return false;
+        if (id == null) {
+            if (other.id != null)
+                return false;
+        } else if (!id.equals(other.id))
+            return false;
+        if (url == null) {
+            if (other.url != null)
+                return false;
+        } else if (!url.equals(other.url))
+            return false;
+        return true;
     }
 
 }
