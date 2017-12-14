@@ -36,8 +36,7 @@ public class UserValidator implements Validator {
         }
 
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "NotEmpty");
-        if (user.getPassword().length() < ValidationConstants.MIN_PASSWORD_LENGHT ||
-                user.getPassword().length() > ValidationConstants.MAX_PASSWORD_LENGHT) {
+        if (user.getPassword().length() < ValidationConstants.MIN_PASSWORD_LENGHT) {
             errors.rejectValue("password", "Size.userForm.password");
         }
 

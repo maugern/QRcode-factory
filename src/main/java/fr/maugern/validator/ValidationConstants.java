@@ -11,7 +11,6 @@ public class ValidationConstants {
     private ValidationConstants(){}
 
     protected static final int MIN_PASSWORD_LENGHT = 8;
-    protected static final int MAX_PASSWORD_LENGHT = 32;
     
     protected static final int MIN_USERNAME_LENGHT = 8;
     protected static final int MAX_USERNAME_LENGHT = 32;
