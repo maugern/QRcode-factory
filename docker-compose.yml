@@ -1,6 +1,0 @@
-postgres:
-  build: docker/postgres
-  port: "5432:5432"
-qrcode-factory:
-  build: docker/qrcode-factory
-  port: "8080:8080"
