@@ -80,30 +80,15 @@ public class User implements Serializable {
      * @see java.lang.Object#equals(java.lang.Object)
      */
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
+    public boolean equals(Object o) {
+        if (getClass() != o.getClass())
             return false;
-        if (getClass() != obj.getClass())
-            return false;
-        User other = (User) obj;
-        if (id == null) {
-            if (other.id != null)
-                return false;
-        } else if (!id.equals(other.id))
-            return false;
-        if (password == null) {
-            if (other.password != null)
-                return false;
-        } else if (!password.equals(other.password))
-            return false;
-        if (username == null) {
-            if (other.username != null)
-                return false;
-        } else if (!username.equals(other.username))
-            return false;
-        return true;
+
+        User user = (User) o;
+
+        return user.getId().equals(id) &&
+               user.getUsername().equals(username) &&
+               user.getPassword().equals(password);
     }
 
 }

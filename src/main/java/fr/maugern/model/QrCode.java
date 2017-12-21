@@ -127,30 +127,15 @@ public class QrCode implements Serializable {
      * @see java.lang.Object#equals(java.lang.Object)
      */
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
+    public boolean equals(Object o) {
+        if (getClass() != o.getClass())
             return false;
-        if (getClass() != obj.getClass())
-            return false;
-        QrCode other = (QrCode) obj;
-        if (author == null) {
-            if (other.author != null)
-                return false;
-        } else if (!author.equals(other.author))
-            return false;
-        if (id == null) {
-            if (other.id != null)
-                return false;
-        } else if (!id.equals(other.id))
-            return false;
-        if (url == null) {
-            if (other.url != null)
-                return false;
-        } else if (!url.equals(other.url))
-            return false;
-        return true;
+
+        QrCode qr = (QrCode) o;
+
+        return qr.getId().equals(id) &&
+               qr.getAuthor().equals(author) &&
+               qr.getUrl().equals(url);
     }
 
 }

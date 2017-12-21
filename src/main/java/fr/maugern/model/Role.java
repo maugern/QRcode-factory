@@ -1,9 +1,14 @@
 package fr.maugern.model;
 
-import javax.persistence.*;
-
 import java.io.Serializable;
 import java.util.Set;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 
 /** Role entity model */
 @Entity
@@ -59,25 +64,14 @@ public class Role implements Serializable {
      * @see java.lang.Object#equals(java.lang.Object)
      */
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
+    public boolean equals(Object o) {
+        if (getClass() != o.getClass())
             return false;
-        if (getClass() != obj.getClass())
-            return false;
-        Role other = (Role) obj;
-        if (id == null) {
-            if (other.id != null)
-                return false;
-        } else if (!id.equals(other.id))
-            return false;
-        if (name == null) {
-            if (other.name != null)
-                return false;
-        } else if (!name.equals(other.name))
-            return false;
-        return true;
+
+        Role role = (Role) o;
+
+	    return role.getId().equals(id) &&
+               role.getName().equals(name);
     }
 
 }
