@@ -2,7 +2,6 @@ fr.maugern.data
 fr.maugern.data.impl
 fr.maugern.model
 fr.maugern.repository
-fr.maugern.rest
 fr.maugern.service
 fr.maugern.service.impl
 fr.maugern.validator
