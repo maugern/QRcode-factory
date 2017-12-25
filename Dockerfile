@@ -8,13 +8,12 @@ MAINTAINER Nicolas Mauger <https://maugern.fr>
 ENV LANG en_US.UTF-8
 
 # CONFIGURE MAVEN ==============================================================
-ADD pom.xml /srv/QRcode-factory/
+COPY pom.xml /srv/QRcode-factory/
 WORKDIR /srv/QRcode-factory/
-RUN mvn install
 
 # WEB SERVICE CONFIGURATION ====================================================
-ADD src /srv/QRcode-factory/src/
+COPY src /srv/QRcode-factory/src/
 EXPOSE 8080
 
 # START THE WEB SERVER =========================================================
-CMD mvn jetty:run
+CMD mvn jetty:run -B
