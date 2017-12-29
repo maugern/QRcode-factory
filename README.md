@@ -3,19 +3,31 @@
 
 **Short link generator distributed by QRcode**
 
-[![][travis img]][travis] [![][circleci img]][circleci] [![][vulnerabilities img]][vulnerabilities] [![][code-climate img]][code-climate] [![][codecov img]][codecov] [![][codacy img]][codacy] [![][license img]][license]
+[![][travis img]][travis] [![][circleci img]][circleci] [![][vulnerabilities img]][vulnerabilities] [![][code-climate img]][code-climate] [![][codecov img]][codecov] [![][codacy img]][codacy] [![][sonar img]][sonar] [![][license img]][license]
 
-## Contribute
+## Deploy the application with doker
+First pull the docker image :
+```
+docker pull maugern/qrcode-factory
+```
+
+Then run it :
+```
+docker run -p 8080:8080 qrcode-factory
+```
+
+And that's it, you can see the result at the address
+
+## Contributing 
 ### Prerequisite
+To build the application localy, you need :
 - Java 8
-- maven
-- The ``application.properties`` file fill with your postgres database information.
-
-### To launch application locally
+- maven 3
+- A PostgreSQL database
 
 First clone the project :
 ```
-git clone https://github.com/maugern/QRcode-factory.git
+git clone https://github.com/maugern/QRcode-factory.git && cd QRcode-factory
 ```
 
 Then download dependency :
@@ -25,24 +37,26 @@ mvn install verify
 
 Then launch application on port 8080 :
 ```
-mvn jetty:run
+mvn jetty:run -Djdbc.url=<url of your psql database> -Djdbc.username=<username> -Djdbc.password=<password>
 ```
-And that's it! Now you can see the result at ```http://localhost:8080/```.
+
+If you dont like passing your postgres database information in command line, you fill your database information in the file ``src/main/resources/application.properties``.
+
 If you encounter a problem with this apps, do not hesitate to [bring me the problem](https://github.com/maugern/QRcode-factory/issues).
 
 ### Javadoc
 Javadoc is available [here](https://maugern.github.io/QRcode-factory/).
 
 ## Licence
-This project is distribute under [MIT license](https://opensource.org/licenses/MIT)
+This project is distribute under [GNU Affero Public License](https://www.gnu.org/licenses/agpl-3.0.en.html)
 
 ## Author
 - [MAUGER Nicolas](https://maugern.fr/)
 
 [travis]:https://travis-ci.org/maugern/QRcode-factory
 [travis img]:https://travis-ci.org/maugern/QRcode-factory.svg?branch=master
-[license]:https://github.com/maugern/QRcode-factory/blob/master/LICENSE
-[license img]:https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000
+[license]:https://www.gnu.org/licenses/agpl-3.0.en.html
+[license img]:https://img.shields.io/badge/License-AGPL%20v3-blue.svg
 [vulnerabilities]:https://snyk.io/test/github/maugern/qrcode-factory
 [vulnerabilities img]:https://snyk.io/test/github/maugern/qrcode-factory/badge.svg
 [code-climate]:https://codeclimate.com/github/maugern/QRcode-factory
@@ -53,3 +67,6 @@ This project is distribute under [MIT license](https://opensource.org/licenses/M
 [circleci img]:https://circleci.com/gh/maugern/QRcode-factory.svg?style=shield&circle-token=:circle-token
 [codacy]:https://www.codacy.com/app/contact_74/QRcode-factory?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=maugern/QRcode-factory&amp;utm_campaign=Badge_Grade
 [codacy img]:https://api.codacy.com/project/badge/Grade/e9829ad6908d47b3a0d9acb290c18dad
+[sonar]:https://sonarcloud.io/dashboard?id=fr.maugern%3AQRcode-factory
+[sonar img]:https://sonarcloud.io/api/badges/gate?key=fr.maugern:QRcode-factory
+
