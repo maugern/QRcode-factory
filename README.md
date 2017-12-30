@@ -5,7 +5,7 @@
 
 [![][travis img]][travis] [![][circleci img]][circleci] [![][vulnerabilities img]][vulnerabilities] [![][code-climate img]][code-climate] [![][codecov img]][codecov] [![][codacy img]][codacy] [![][sonar img]][sonar] [![][license img]][license]
 
-## Deploy the application with doker
+## Deploy the application with docker 
 First pull the docker image :
 ```
 docker pull maugern/qrcode-factory
@@ -49,6 +49,17 @@ Javadoc is available [here](https://maugern.github.io/QRcode-factory/).
 
 ## Licence
 This project is distribute under [GNU Affero Public License](https://www.gnu.org/licenses/agpl-3.0.en.html)
+
+### Others licenses used
+Above I list all used dependencies group by license. If I forget some, please send me an email/issue or submit a pull request.
+- [Apache License 2](http://www.apache.org/licenses/LICENSE-2.0): Spring, Maven, Jetty, common-dhcp, zxing
+- [BSD-2-Clause](https://opensource.org/licenses/BSD-2-Clause): Postgres-jdbc, hsqldb
+- [Common Development and Distribution License 1.0](https://opensource.org/licenses/CDDL-1.0): javax-el, jsp-api, logback
+- [Eclipse Public License](http://www.eclipse.org/org/documents/epl-v10.php): Jetty, JUnit, logback
+- [GNU Lesser General Public License](https://www.gnu.org/licenses/lgpl-3.0.en.html): hibernate
+- [MIT license](https://opensource.org/licenses/MIT): hashid
+
+
 
 ## Author
 - [MAUGER Nicolas](https://maugern.fr/)
