@@ -1,5 +1,5 @@
 java:
-  image: maugern/QRcode-factory
+  image: maugern/qrcode-factory
   ports:
   - ip: 46.105.73.79
     container_port: 8080
