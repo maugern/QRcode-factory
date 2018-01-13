@@ -51,7 +51,7 @@ Javadoc is available [here](https://maugern.github.io/QRcode-factory/).
 This project is distribute under [GNU Affero Public License](https://www.gnu.org/licenses/agpl-3.0.en.html)
 
 ### Others licenses used
-Above I list all used dependencies group by license. If I forget some, please send me an email/issue or submit a pull request.
+I list below the dependencies used in this project grouped by licenses. If I forget some, please send me an email/issue or submit a pull request.
 - [Apache License 2](http://www.apache.org/licenses/LICENSE-2.0): Spring, Maven, Jetty, common-dhcp, zxing
 - [BSD-2-Clause](https://opensource.org/licenses/BSD-2-Clause): Postgres-jdbc, hsqldb
 - [Common Development and Distribution License 1.0](https://opensource.org/licenses/CDDL-1.0): javax-el, jsp-api, logback
