@@ -36,7 +36,7 @@
 
 		<spring.version>4.3.15.RELEASE</spring.version>
 		<spring-security.version>4.2.4.RELEASE</spring-security.version>
-		<spring-data-jpa.version>1.11.7.RELEASE</spring-data-jpa.version>
+		<spring-data-jpa.version>1.11.11.RELEASE</spring-data-jpa.version>
 
 		<junit.version>4.12</junit.version>
 
