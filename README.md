@@ -79,5 +79,5 @@ I list below the dependencies used in this project grouped by licenses. If I for
 [codacy]:https://www.codacy.com/app/contact_74/QRcode-factory?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=maugern/QRcode-factory&amp;utm_campaign=Badge_Grade
 [codacy img]:https://api.codacy.com/project/badge/Grade/e9829ad6908d47b3a0d9acb290c18dad
 [sonar]:https://sonarcloud.io/dashboard?id=fr.maugern%3AQRcode-factory
-[sonar img]:https://sonarcloud.io/api/badges/gate?key=fr.maugern:QRcode-factory
+[sonar img]:https://sonarcloud.io/api/project_badges/measure?project=fr.maugern%3AQRcode-factory&metric=alert_status
 
