@@ -34,7 +34,7 @@
 		<jetty-maven.version>9.2.11.v20150529</jetty-maven.version>
 		<maven-war-plugin.version>3.1.0</maven-war-plugin.version>
 
-		<spring.version>4.3.15.RELEASE</spring.version>
+		<spring.version>5.0.8.RELEASE</spring.version>
 		<spring-security.version>4.2.4.RELEASE</spring-security.version>
 		<spring-data-jpa.version>1.11.11.RELEASE</spring-data-jpa.version>
 
@@ -200,7 +200,7 @@
 						<format>html</format>
 						<format>xml</format>
 					</formats>
-					<check />
+					<check/>
 				</configuration>
 			</plugin>
 		</plugins>
