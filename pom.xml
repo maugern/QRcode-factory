@@ -38,7 +38,7 @@
 		<spring-security.version>4.2.12.RELEASE</spring-security.version>
 		<spring-data-jpa.version>1.11.22.RELEASE</spring-data-jpa.version>
 
-		<junit.version>4.12</junit.version>
+		<junit.version>4.13.1</junit.version>
 
 		<postgresql-jdbc.version>42.2.5</postgresql-jdbc.version>
 		<hsql.version>2.2.8</hsql.version>
