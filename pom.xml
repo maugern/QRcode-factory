@@ -43,7 +43,7 @@
 		<postgresql-jdbc.version>42.2.5</postgresql-jdbc.version>
 		<hsql.version>2.2.8</hsql.version>
 
-		<hibernate.version>4.3.11.Final</hibernate.version>
+		<hibernate.version>5.4.24.Final</hibernate.version>
 		<hibernate-validator.version>5.2.5.Final</hibernate-validator.version>
 
 		<javax-el.version>2.2.4</javax-el.version>
