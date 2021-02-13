@@ -35,7 +35,7 @@
 		<maven-war-plugin.version>3.1.0</maven-war-plugin.version>
 
 		<spring.version>5.0.10.RELEASE</spring.version>
-		<spring-security.version>4.2.12.RELEASE</spring-security.version>
+		<spring-security.version>4.2.16.RELEASE</spring-security.version>
 		<spring-data-jpa.version>1.11.22.RELEASE</spring-data-jpa.version>
 
 		<junit.version>4.12</junit.version>
