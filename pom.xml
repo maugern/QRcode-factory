@@ -34,7 +34,7 @@
 		<jetty-maven.version>9.2.11.v20150529</jetty-maven.version>
 		<maven-war-plugin.version>3.1.0</maven-war-plugin.version>
 
-		<spring.version>5.0.10.RELEASE</spring.version>
+		<spring.version>5.2.15.RELEASE</spring.version>
 		<spring-security.version>4.2.12.RELEASE</spring-security.version>
 		<spring-data-jpa.version>1.11.22.RELEASE</spring-data-jpa.version>
 
@@ -43,8 +43,8 @@
 		<postgresql-jdbc.version>42.2.5</postgresql-jdbc.version>
 		<hsql.version>2.2.8</hsql.version>
 
-		<hibernate.version>4.3.11.Final</hibernate.version>
-		<hibernate-validator.version>5.2.5.Final</hibernate-validator.version>
+		<hibernate.version>5.4.24.Final</hibernate.version>
+		<hibernate-validator.version>6.0.19.Final</hibernate-validator.version>
 
 		<javax-el.version>2.2.4</javax-el.version>
 		<jsp-api.version>2.0</jsp-api.version>
@@ -52,7 +52,7 @@
 		<commons-dbcp.version>1.4</commons-dbcp.version>
 		<logback.version>1.2.3</logback.version>
 		<hashid.version>1.0.3</hashid.version>
-		<zxing.version>3.3.0</zxing.version>
+		<zxing.version>3.4.1</zxing.version>
 
 		<cobertura-maven-plugin.version>2.7</cobertura-maven-plugin.version>
 	</properties>
